@@ -6,8 +6,8 @@
  */
 
 /* Constants */
-const GWINDOW_WIDTH = 500;
-const GWINDOW_HEIGHT = 300;
+const GWINDOW_WIDTH = 1200;
+const GWINDOW_HEIGHT = 400;
 
 /*
  * Allows the user to draw lines on the screen by dragging the mouse.
@@ -17,6 +17,7 @@ function DrawLines() {
   let line = null;
   let mousedownAction = function(e) {
     line = GLine(e.getX(), e.getY(), e.getX(), e.getY());
+    line.setLineWidth(2)
     gw.add(line);
   };
   let dragAction = function(e) {

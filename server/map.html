@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap Location Viewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .input-section {
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .location-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .location-label {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .optional {
+            color: #95a5a6;
+            font-weight: normal;
+            font-size: 0.9em;
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .input-field {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .info {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📍 Location Viewer</h1>
+            <p class="subtitle">Visualize locations on OpenStreetMap</p>
+        </div>
+        
+        <div class="input-section">
+            <div class="location-group">
+                <div class="location-label">
+                    Location 1 <span class="required">*</span>
+                </div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label for="lat1">Latitude</label>
+                        <input type="number" id="lat1" step="any" placeholder="e.g., 40.7128" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="lon1">Longitude</label>
+                        <input type="number" id="lon1" step="any" placeholder="e.g., -74.0060" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="location-group">
+                <div class="location-label">
+                    Location 2 <span class="optional">(Optional)</span>
+                </div>
+                <div class="input-row">
+                    <div class="input-field">
+                        <label for="lat2">Latitude</label>
+                        <input type="number" id="lat2" step="any" placeholder="e.g., 51.5074">
+                    </div>
+                    <div class="input-field">
+                        <label for="lon2">Longitude</label>
+                        <input type="number" id="lon2" step="any" placeholder="e.g., -0.1278">
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="showLocations()">Show on Map</button>
+            <div class="error" id="error"></div>
+            <div class="info">
+                💡 <strong>Tip:</strong> Latitude ranges from -90 to 90, Longitude ranges from -180 to 180
+            </div>
+        </div>
+        
+        <div id="map"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        
+        // Initialize map
+        function initMap() {
+            map = L.map('map').setView([20, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+        }
+        
+        // Clear existing markers
+        function clearMarkers() {
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+        }
+        
+        // Show locations on map
+        function showLocations() {
+            const lat1 = parseFloat(document.getElementById('lat1').value);
+            const lon1 = parseFloat(document.getElementById('lon1').value);
+            const lat2 = parseFloat(document.getElementById('lat2').value);
+            const lon2 = parseFloat(document.getElementById('lon2').value);
+            const errorDiv = document.getElementById('error');
+            
+            errorDiv.style.display = 'none';
+            
+            // Validate mandatory location
+            if (isNaN(lat1) || isNaN(lon1)) {
+                errorDiv.textContent = 'Please enter valid coordinates for Location 1 (required)';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            if (lat1 < -90 || lat1 > 90 || lon1 < -180 || lon1 > 180) {
+                errorDiv.textContent = 'Location 1 coordinates are out of valid range';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            // Clear previous markers
+            clearMarkers();
+            
+            // Add first location marker (red)
+            const marker1 = L.marker([lat1, lon1], {
+                icon: L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                })
+            }).addTo(map);
+            marker1.bindPopup(`<b>Location 1</b><br>Lat: ${lat1}<br>Lon: ${lon1}`);
+            markers.push(marker1);
+            
+            let bounds = [[lat1, lon1]];
+            
+            // Add second location if provided
+            if (!isNaN(lat2) && !isNaN(lon2)) {
+                if (lat2 < -90 || lat2 > 90 || lon2 < -180 || lon2 > 180) {
+                    errorDiv.textContent = 'Location 2 coordinates are out of valid range';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+                
+                const marker2 = L.marker([lat2, lon2], {
+                    icon: L.icon({
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                    })
+                }).addTo(map);
+                marker2.bindPopup(`<b>Location 2</b><br>Lat: ${lat2}<br>Lon: ${lon2}`);
+                markers.push(marker2);
+                bounds.push([lat2, lon2]);
+                
+                // Draw a line between the two points
+                const polyline = L.polyline(bounds, {
+                    color: '#667eea',
+                    weight: 3,
+                    opacity: 0.7,
+                    dashArray: '10, 10'
+                }).addTo(map);
+                markers.push(polyline);
+            }
+            
+            // Fit map to show all markers
+            if (bounds.length > 1) {
+                map.fitBounds(bounds, { padding: [50, 50] });
+            } else {
+                map.setView([lat1, lon1], 13);
+            }
+            
+            // Open popup for first marker
+            marker1.openPopup();
+        }
+        
+        // Initialize map on page load
+        initMap();
+    </script>
+</body>
+</html>

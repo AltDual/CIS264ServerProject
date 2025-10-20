@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate Viewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f5f5f5;
+        }
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .input-panel {
+            width: 350px;
+            background: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        textarea {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: none;
+            margin-bottom: 12px;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .info {
+            margin-top: 12px;
+            padding: 10px;
+            background: #e8f4f8;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #2c3e50;
+        }
+        .error {
+            background: #ffe6e6;
+            color: #c0392b;
+        }
+        #map {
+            flex: 1;
+            background: #aad3df;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📍 OpenStreetMap Coordinate Viewer</h1>
+        <p>Paste your coordinates and visualize them on the map</p>
+    </div>
+    <div class="container">
+        <div class="input-panel">
+            <label for="coords">Coordinates (longitude, latitude):</label>
+            <textarea id="coords" placeholder="Paste coordinates here...
+Examples:
+[-122.33712, 37.53373]
+[-122.33757, 37.53406]
+
+or:
+
+-122.33712, 37.53373
+-122.33757, 37.53406"></textarea>
+            <button class="btn" onclick="plotCoordinates()">Plot on Map</button>
+            <div id="info" class="info" style="display:none;"></div>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <script>
+        let map = L.map('map').setView([37.53373, -122.33712], 16);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        let markers = [];
+        let polyline = null;
+
+        function plotCoordinates() {
+            const input = document.getElementById('coords').value.trim();
+            const info = document.getElementById('info');
+            
+            // Clear previous markers and polyline
+            markers.forEach(m => map.removeLayer(m));
+            if (polyline) map.removeLayer(polyline);
+            markers = [];
+            
+            if (!input) {
+                info.textContent = 'Please paste some coordinates!';
+                info.className = 'info error';
+                info.style.display = 'block';
+                return;
+            }
+
+            try {
+                const coords = parseCoordinates(input);
+                
+                if (coords.length === 0) {
+                    throw new Error('No valid coordinates found');
+                }
+
+                // Convert to [lat, lng] for Leaflet
+                const latLngs = coords.map(c => [c[1], c[0]]);
+
+                // Add markers
+                latLngs.forEach((pos, i) => {
+                    const marker = L.circleMarker(pos, {
+                        radius: 6,
+                        fillColor: '#e74c3c',
+                        color: '#fff',
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0.8
+                    }).addTo(map);
+                    marker.bindPopup(`Point ${i + 1}<br>Lat: ${pos[0]}<br>Lng: ${pos[1]}`);
+                    markers.push(marker);
+                });
+
+                // Draw polyline connecting points
+                polyline = L.polyline(latLngs, {
+                    color: '#3498db',
+                    weight: 3,
+                    opacity: 0.7
+                }).addTo(map);
+
+                // Fit map to show all points
+                map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
+
+                info.textContent = `✓ Plotted ${coords.length} point${coords.length !== 1 ? 's' : ''}`;
+                info.className = 'info';
+                info.style.display = 'block';
+
+            } catch (e) {
+                info.textContent = '⚠ Error: ' + e.message;
+                info.className = 'info error';
+                info.style.display = 'block';
+            }
+        }
+
+        function parseCoordinates(text) {
+            const coords = [];
+            
+            // Remove all whitespace and newlines for easier parsing
+            const cleaned = text.replace(/\s+/g, '');
+            
+            // Try to match coordinate pairs in various formats
+            // Match: [lng, lat] or (lng, lat) or lng, lat
+            const patterns = [
+                /\[(-?\d+\.?\d*),(-?\d+\.?\d*)\]/g,
+                /\((-?\d+\.?\d*),(-?\d+\.?\d*)\)/g,
+                /(-?\d+\.?\d*),(-?\d+\.?\d*)/g
+            ];
+
+            for (const pattern of patterns) {
+                let match;
+                const matches = [];
+                while ((match = pattern.exec(cleaned)) !== null) {
+                    matches.push(match);
+                }
+                
+                if (matches.length > 0) {
+                    matches.forEach(m => {
+                        const lng = parseFloat(m[1]);
+                        const lat = parseFloat(m[2]);
+                        if (!isNaN(lng) && !isNaN(lat)) {
+                            coords.push([lng, lat]);
+                        }
+                    });
+                    break;
+                }
+            }
+
+            return coords;
+        }
+
+        // Auto-plot if there's initial data
+        window.addEventListener('load', () => {
+            const textarea = document.getElementById('coords');
+            if (textarea.value.trim()) {
+                plotCoordinates();
+            }
+        });
+    </script>
+</body>
+</html>

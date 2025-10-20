@@ -1,19 +1,32 @@
+import json
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 from datetime import datetime
+from haversine import haversine_distance as hav
 
-# Function to calculate total distance between coordinates
-def calculate_distance(coords):
-    total_distance = 0
-    for i in range(len(coords) - 1):
+#FIXME: rewrite distance calculation
+def calculate_distance(coords, current_coord, target_stop):
+    total_distance, index = find_closest_coord(coords, current_coord) 
+    for i in range(index, target_stop):
         lat1, lon1 = coords[i]
         lat2, lon2 = coords[i+1]
-        dx = (lat2 - lat1) * 111000
-        dy = (lon2 - lon1) * 111000
-        total_distance += np.sqrt(dx**2 + dy**2)
+        total_distance += hav(lat, lon1, lat2, lon2)
     return total_distance
-
+def find_closest_coord(coords, current_coord):
+    if not coords:
+        return None
+    min_distance_hav = float('inf')
+    closest_coord_index = 0
+    
+    for i in coords:
+        lat1, lon1 = coords[i]
+        lat2, lon2 = current_coord
+        distance = hav(lat1, lon1, lat2, lon2)
+        if distance < min_distance_hav:
+            min_distance_hav = distance
+            closest_coord_index = i
+    return min_distance_sq, closest_coord_index
 class BusETAPredictor:
     def __init__(self):
         self.model = LinearRegression()
@@ -41,17 +54,22 @@ class BusETAPredictor:
         return self.model.predict(X)[0]
 
 if __name__ == "__main__":
-    coords = [(37.7749, -122.4194), (37.7750, -122.4180), (37.7755, -122.4170)]
+    CORRDINATE_FILE = ""
+    ROUTE_STOPS = ""
+    current_coord = None
+    with open(CORRDINATE_FILE, 'r') as f:
+        coords = json.load(f)
+    with open(ROUTE_STOPS, 'r') as f:
+        routestop_coords = json.load(f)
+    for i in routestop_coords:
+        _ , closest_stop_index = (coords, i)
+        routestop_index.append(closest_stop_index)
     distance_to_next_stop = calculate_distance(coords)
-
-    X_train = [
-        (8, 0, 500),   # 8 AM Monday, 500 meters
-        (9, 0, 600),
-        (17, 4, 700),  # 5 PM Friday
-        (12, 2, 400),
-        (15, 2, 450)
-    ]
-    y_train = [3, 4, 6, 3, 3.5]  # ETA in minutes
+    
+    #Array of n-tuples
+    X_train = []
+    #Array in minutes or seconds
+    y_train = []  # ETA in seconds
 
     predictor = BusETAPredictor()
     predictor.fit(X_train, y_train)

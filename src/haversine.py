@@ -1,5 +1,5 @@
 import math
-def haversine_distance(lat1, lon1, lat2, lon2):
+def hav(lat1, lon1, lat2, lon2):
     R = 6371
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)

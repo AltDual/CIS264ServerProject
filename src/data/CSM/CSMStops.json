@@ -1,0 +1,1568 @@
+{
+    "341081": {
+        "nid": [
+            {
+                "value": "6171"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "CSM Transit Ctr"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341081",
+                "pid": "4744",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "14976"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.337067 37.533776)",
+                "geo_type": "Point",
+                "lat": 37.533776,
+                "lon": -122.337067,
+                "left": -122.337067,
+                "top": 37.533776,
+                "right": -122.337067,
+                "bottom": 37.533776,
+                "geohash": "9q9j80uf5dzp",
+                "latlon": "37.533776,-122.337067"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "5086"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Downtown San Mateo - College of San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/250",
+                        "pid": "3659",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "250"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "250"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "22554"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [
+                    {
+                        "target_id": "4767016",
+                        "target_revision_id": "10188486"
+                    }
+                ],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            },
+            {
+                "nid": [
+                    {
+                        "value": "5113"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Aragon HS - Polhemus/Paul Scannell"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/56",
+                        "pid": "3686",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "56"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "56"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "21517"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341081"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    "341184": {
+        "nid": [
+            {
+                "value": "6236"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "W Hillsdale Blvd & Clearview Way"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341184",
+                "pid": "4809",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "15034"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.333464 37.531753)",
+                "geo_type": "Point",
+                "lat": 37.531753,
+                "lon": -122.333464,
+                "left": -122.333464,
+                "top": 37.531753,
+                "right": -122.333464,
+                "bottom": 37.531753,
+                "geohash": "9q9j80rqr9vg",
+                "latlon": "37.531753,-122.333464"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "5086"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Downtown San Mateo - College of San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/250",
+                        "pid": "3659",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "250"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "250"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "22554"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [
+                    {
+                        "target_id": "4767016",
+                        "target_revision_id": "10188486"
+                    }
+                ],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            },
+            {
+                "nid": [
+                    {
+                        "value": "5113"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Aragon HS - Polhemus/Paul Scannell"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/56",
+                        "pid": "3686",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "56"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "56"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "21517"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            },
+            {
+                "nid": [
+                    {
+                        "value": "5115"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Borel School - Polhemus/Paul Scannell"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/58",
+                        "pid": "3688",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "58"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "58"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "28097"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341184"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    "341185": {
+        "nid": [
+            {
+                "value": "6237"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "W Hillsdale Blvd & Clearview Way"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341185",
+                "pid": "4810",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "14967"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.332549 37.531649)",
+                "geo_type": "Point",
+                "lat": 37.531649,
+                "lon": -122.332549,
+                "left": -122.332549,
+                "top": 37.531649,
+                "right": -122.332549,
+                "bottom": 37.531649,
+                "geohash": "9q9j822jtn2n",
+                "latlon": "37.531649,-122.332549"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "5086"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Downtown San Mateo - College of San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/250",
+                        "pid": "3659",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "250"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "250"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "22554"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [
+                    {
+                        "target_id": "4767016",
+                        "target_revision_id": "10188486"
+                    }
+                ],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            },
+            {
+                "nid": [
+                    {
+                        "value": "5113"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Aragon HS - Polhemus/Paul Scannell"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/56",
+                        "pid": "3686",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "56"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "56"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "21517"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            },
+            {
+                "nid": [
+                    {
+                        "value": "5115"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "Borel School - Polhemus/Paul Scannell"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/58",
+                        "pid": "3688",
+                        "langcode": "en"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "58"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "58"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "28097"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341185"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    
+    "341060": {
+        "nid": [
+            {
+                "value": "6167"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "Alameda de las Pulgas & Virginia Ave"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341060",
+                "pid": "4740",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "16548"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.333322 37.553499)",
+                "geo_type": "Point",
+                "lat": 37.553499,
+                "lon": -122.333322,
+                "left": -122.333322,
+                "top": 37.553499,
+                "right": -122.333322,
+                "bottom": 37.553499,
+                "geohash": "9q9j8hrsfzxe",
+                "latlon": "37.553499,-122.333322"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "11160"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "College of San Mateo - Downtown San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/csm",
+                        "pid": "10671",
+                        "langcode": "en"
+                    }
+                ],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "33896"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [
+                    {
+                        "value": "0"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341060"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    "341271": {
+        "nid": [
+            {
+                "value": "6277"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "Parrott Dr & Harvard Rd"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341271",
+                "pid": "4850",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "14834"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.330969 37.556436)",
+                "geo_type": "Point",
+                "lat": 37.556436,
+                "lon": -122.330969,
+                "left": -122.330969,
+                "top": 37.556436,
+                "right": -122.330969,
+                "bottom": 37.556436,
+                "geohash": "9q9j8kcq1g45",
+                "latlon": "37.556436,-122.330969"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "11160"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "College of San Mateo - Downtown San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/csm",
+                        "pid": "10671",
+                        "langcode": "en"
+                    }
+                ],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "33896"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [
+                    {
+                        "value": "0"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341271"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    "341617": {
+        "nid": [
+            {
+                "value": "6311"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "Alameda de las Pulgas & MacArthur Ave"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341617",
+                "pid": "4884",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "16595"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.325650 37.549488)",
+                "geo_type": "Point",
+                "lat": 37.549488,
+                "lon": -122.32565,
+                "left": -122.32565,
+                "top": 37.549488,
+                "right": -122.32565,
+                "bottom": 37.549488,
+                "geohash": "9q9j87tjtgbk",
+                "latlon": "37.549488,-122.32565"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "11160"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "College of San Mateo - Downtown San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/csm",
+                        "pid": "10671",
+                        "langcode": "en"
+                    }
+                ],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "33896"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [
+                    {
+                        "value": "0"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341617"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    "341622": {
+        "nid": [
+            {
+                "value": "6316"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "Alameda de las Pulgas & Barneson Ave"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341622",
+                "pid": "4889",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "16542"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.324768 37.548965)",
+                "geo_type": "Point",
+                "lat": 37.548965,
+                "lon": -122.324768,
+                "left": -122.324768,
+                "top": 37.548965,
+                "right": -122.324768,
+                "bottom": 37.548965,
+                "geohash": "9q9j87tfd66h",
+                "latlon": "37.548965,-122.324768"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "11160"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "College of San Mateo - Downtown San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/csm",
+                        "pid": "10671",
+                        "langcode": "en"
+                    }
+                ],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "33896"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [
+                    {
+                        "value": "0"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341622"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    "341956": {
+        "nid": [
+            {
+                "value": "11164"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "San Mateo Caltrain Station"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341956",
+                "pid": "10675",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "33844"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.323810 37.567643)",
+                "geo_type": "Point",
+                "lat": 37.567643,
+                "lon": -122.32381,
+                "left": -122.32381,
+                "top": 37.567643,
+                "right": -122.32381,
+                "bottom": 37.567643,
+                "geohash": "9q9j8qyx2shr",
+                "latlon": "37.567643,-122.32381"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "11160"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "College of San Mateo - Downtown San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/csm",
+                        "pid": "10671",
+                        "langcode": "en"
+                    }
+                ],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "33896"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [
+                    {
+                        "value": "0"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341956"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    },
+    "341957": {
+        "nid": [
+            {
+                "value": "11165"
+            }
+        ],
+        "type": [
+            {
+                "target_id": "stop"
+            }
+        ],
+        "title": [
+            {
+                "value": "Parrot & Alameda De Las Pulgas"
+            }
+        ],
+        "path": [
+            {
+                "alias": "/samtrans/stop/341957",
+                "pid": "10676",
+                "langcode": "en"
+            }
+        ],
+        "field_agency_id": [
+            {
+                "value": "SamTrans"
+            }
+        ],
+        "field_amenities_benefits": [],
+        "field_body": [],
+        "field_details": [],
+        "field_directions": [
+            "0",
+            "1"
+        ],
+        "field_history": [],
+        "field_image": [
+            {
+                "target_id": "33845"
+            }
+        ],
+        "field_images": [],
+        "field_location": [
+            {
+                "value": "POINT (-122.334320 37.553986)",
+                "geo_type": "Point",
+                "lat": 37.553986,
+                "lon": -122.33432,
+                "left": -122.33432,
+                "top": 37.553986,
+                "right": -122.33432,
+                "bottom": 37.553986,
+                "geohash": "9q9j8hqzgdrs",
+                "latlon": "37.553986,-122.33432"
+            }
+        ],
+        "field_location_type": [
+            {
+                "value": "0"
+            }
+        ],
+        "field_map": [],
+        "field_pads_id": [],
+        "field_parent_station": [],
+        "field_serviced_routes": [
+            {
+                "nid": [
+                    {
+                        "value": "11160"
+                    }
+                ],
+                "type": [
+                    {
+                        "target_id": "route"
+                    }
+                ],
+                "title": [
+                    {
+                        "value": "College of San Mateo - Downtown San Mateo"
+                    }
+                ],
+                "path": [
+                    {
+                        "alias": "/samtrans/routes/csm",
+                        "pid": "10671",
+                        "langcode": "en"
+                    }
+                ],
+                "field_agency_id": [
+                    {
+                        "value": "SamTrans"
+                    }
+                ],
+                "field_body": [],
+                "field_map": [],
+                "field_price": [],
+                "field_route_color": [],
+                "field_route_id": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_short_name": [
+                    {
+                        "value": "CSM"
+                    }
+                ],
+                "field_route_sub_type": [],
+                "field_schedule": [
+                    {
+                        "target_id": "33896"
+                    }
+                ],
+                "field_service_description": [],
+                "field_stops": [],
+                "field_text_color": [],
+                "field_transit_connections": [],
+                "field_url": [],
+                "field_weight": [
+                    {
+                        "value": "0"
+                    }
+                ]
+            }
+        ],
+        "field_stop_areas": [],
+        "field_stop_id": [
+            {
+                "value": "341957"
+            }
+        ],
+        "field_transit_connections": [],
+        "field_zone_id": [
+            {
+                "value": "1"
+            }
+        ],
+        "child_stop_ids": [],
+        "order": [
+            false,
+            false
+        ]
+    }
+}

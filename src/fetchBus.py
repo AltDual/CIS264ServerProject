@@ -11,7 +11,7 @@ if os.path.exists('temp.json'):
     with open('temp.json', 'r') as f:
         temp = json.load(f)
 
-url = f"https://www.samtrans.com/files/rt/vehiclepositions/SM.json?time={int(time.time() * 1000)}"
+url = f"https://www.samtrans.com/files/"
 response = requests.get(url)
 pre_data = response.json()
 route_positions = []

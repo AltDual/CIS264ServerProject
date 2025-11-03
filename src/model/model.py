@@ -3,9 +3,8 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 from datetime import datetime
-from haversine import haversine_distance as hav
+from haversine import hav
 
-#FIXME: rewrite distance calculation
 def calculate_distance(coords, current_coord, target_stop):
     total_distance, index = find_closest_coord(coords, current_coord) 
     for i in range(index, target_stop):

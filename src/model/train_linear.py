@@ -1,12 +1,17 @@
 import json
 import os
 import numpy as np
+import pandas as pd
+from joblib import dump
 from xgboost import XGBRegressor
 from datetime import datetime , time
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor, ExtraTreesRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.svm import SVR
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 #from haversine import hav
 
@@ -31,6 +36,124 @@ def find_closest_coord(coords, current_coord):
             min_distance_hav = distance
             closest_coord_index = i
     return min_distance_sq, closest_coord_index
+def create_enhanced_features(distance_to_stop, hour, minute, day_of_week, current_distance=0):
+    is_weekend = 1 if day_of_week >= 5 else 0
+    is_rush_hour = 1 if (7 <= hour <= 9) or (16 <= hour <= 18) else 0
+    hour_continuous = hour + minute/60.0
+    
+    # Additional features for better accuracy
+    is_morning = 1 if 6 <= hour < 12 else 0
+    is_afternoon = 1 if 12 <= hour < 18 else 0
+    is_evening = 1 if 18 <= hour < 22 else 0
+    is_night = 1 if hour >= 22 or hour < 6 else 0
+    
+    # Sinusoidal encoding for cyclical time features
+    hour_sin = np.sin(2 * np.pi * hour / 24)
+    hour_cos = np.cos(2 * np.pi * hour / 24)
+    dow_sin = np.sin(2 * np.pi * day_of_week / 7)
+    dow_cos = np.cos(2 * np.pi * day_of_week / 7)
+    
+    # Distance-based features
+    distance_squared = distance_to_stop ** 2
+    distance_log = np.log1p(distance_to_stop)
+    
+    features = [
+        distance_to_stop,
+        hour,
+        minute,
+        day_of_week,
+        is_weekend,
+        is_rush_hour,
+        hour_continuous,
+        is_morning,
+        is_afternoon,
+        is_evening,
+        is_night,
+        hour_sin,
+        hour_cos,
+        dow_sin,
+        dow_cos,
+        distance_squared,
+        distance_log,
+        current_distance,  # Absolute position can matter
+    ]
+    
+    return features
+def get_models():
+    """Return dictionary of models to test"""
+    models = {
+        'GradientBoosting': GradientBoostingRegressor(
+            n_estimators=200,
+            learning_rate=0.05,
+            max_depth=6,
+            min_samples_split=10,
+            min_samples_leaf=4,
+            subsample=0.8,
+            random_state=42
+        ),
+        'XGBoost': XGBRegressor(
+            n_estimators=200,
+            learning_rate=0.05,
+            max_depth=6,
+            min_child_weight=3,
+            subsample=0.8,
+            colsample_bytree=0.8,
+            random_state=42,
+            n_jobs=-1
+        ),
+        'RandomForest': RandomForestRegressor(
+            n_estimators=200,
+            max_depth=15,
+            min_samples_split=10,
+            min_samples_leaf=4,
+            random_state=42,
+            n_jobs=1
+        ),
+        'ExtraTrees': ExtraTreesRegressor(
+            n_estimators=200,
+            max_depth=15,
+            min_samples_split=10,
+            min_samples_leaf=4,
+            random_state=42,
+            n_jobs=1
+        ),
+        'KNN': KNeighborsRegressor(
+            n_neighbors=15,
+            weights='distance',
+            algorithm='auto',
+            leaf_size=30,            
+            p=2,                     
+            metric='minkowski',      
+            n_jobs=1
+        ),
+
+        'Ridge': Ridge(alpha=1.0, random_state=42)
+    }
+    return models
+def evaluate_model(model, X_train, X_test, y_train, y_test, model_name):
+    """Train and evaluate a single model"""
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    
+    mae = mean_absolute_error(y_test, y_pred)
+    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    r2 = r2_score(y_test, y_pred)
+    relative_error = (mae / np.mean(y_test)) * 100
+    
+    # Cross-validation score
+    cv_scores = cross_val_score(model, X_train, y_train, cv=5, 
+                                 scoring='neg_mean_absolute_error', n_jobs=-1)
+    cv_mae = -cv_scores.mean()
+    
+    return {
+        'model': model,
+        'mae': mae,
+        'rmse': rmse,
+        'r2': r2,
+        'relative_error': relative_error,
+        'cv_mae': cv_mae,
+        'y_pred': y_pred
+    }
 def predict_times_to_all_stops(current_distance, time_of_day, day_of_week, all_stops_distances, model, scaler):
     hour = time_of_day.hour
     minute = time_of_day.minute
@@ -43,15 +166,7 @@ def predict_times_to_all_stops(current_distance, time_of_day, day_of_week, all_s
     for stop_distance in upcoming_stops:
         distance_to_stop = stop_distance - current_distance
         
-        features = [[
-            distance_to_stop,          
-            hour,
-            minute,
-            day_of_week,
-            1 if day_of_week >= 5 else 0,
-            1 if 7 <= hour <= 9 or 16 <= hour <= 18 else 0,
-            hour + minute/60.0,
-        ]]
+        features = [create_enhanced_features(distance_to_stop, hour, minute, day_of_week, current_distance)]
         
         features_scaled = scaler.transform(features)
         predicted_seconds = model.predict(features_scaled)[0]
@@ -75,7 +190,6 @@ if __name__ == "__main__":
     for level1_key, level1_value in training.items():
         for level2_key, level2_value in level1_value.items():
             for key_string, array_list in level2_value.items():
-            # Parse time and day from key
                 time_str = key_string[:6]
                 hour = int(time_str[:2])
                 minute = int(time_str[2:4])
@@ -88,34 +202,21 @@ if __name__ == "__main__":
                 date_obj = datetime(year, month, day)
                 day_of_week = date_obj.weekday()
             
-                # For each point in the route (current position)
                 for i in range(len(array_list) - 1):
                     current_point = array_list[i]
                     current_distance = current_point[0]
                     current_timestamp = current_point[1]
                 
-                    # For each upcoming stop after current position
                     for j in range(i + 1, len(array_list)):
                         future_point = array_list[j]
                         future_distance = future_point[0]
                         future_timestamp = future_point[1]
                     
-                        # Distance remaining to this future stop
                         distance_to_stop = future_distance - current_distance
                     
-                        # Time it will take to reach this stop (target)
                         time_to_stop = future_timestamp - current_timestamp
                     
-                        # Features for prediction (NO "stops ahead" feature!)
-                        features = [
-                            distance_to_stop,          
-                            hour,                      
-                            minute,                    
-                            day_of_week,               
-                            1 if day_of_week >= 5 else 0,  # is_weekend
-                            1 if 7 <= hour <= 9 or 16 <= hour <= 18 else 0,  # is_rush_hour
-                            hour + minute/60.0,     
-                        ]
+                        features = create_enhanced_features(distance_to_stop, hour, minute, day_of_week, current_distance)
 
                         X_data.append(features)
                         y_data.append(time_to_stop)
@@ -129,46 +230,47 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 
-model = GradientBoostingRegressor(n_estimators=100, random_state=42, max_depth=5)
-model.fit(X_train_scaled, y_train)
+# Test all models
+print("\n" + "="*80)
+print("TRAINING AND EVALUATING MULTIPLE MODELS")
+print("="*80 + "\n")
 
-print("Model trained successfully!")
+models = get_models()
+results = {}
 
-y_pred = model.predict(X_test_scaled)
+for model_name, model in models.items():
+    print(f"Training {model_name}...")
+    results[model_name] = evaluate_model(
+        model, X_train_scaled, X_test_scaled, y_train, y_test, model_name
+    )
 
-mae = mean_absolute_error(y_test, y_pred)
-rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-relative_error = (mae / np.mean(y_test)) * 100
+# Display results
+print("\n" + "="*80)
+print("MODEL COMPARISON RESULTS")
+print("="*80 + "\n")
 
-print("\n================ MODEL ACCURACY ================\n")
-print(f"MAE  (mean absolute error):     {mae:.2f} sec")
-print(f"RMSE (root mean squared error): {rmse:.2f} sec")
-print(f"Avg actual travel time:         {np.mean(y_test):.2f} sec")
-print(f"Relative error:                {relative_error:.2f}%")
-print("\n================================================\n")
+results_df = pd.DataFrame({
+    name: {
+        'MAE (sec)': f"{res['mae']:.2f}",
+        'RMSE (sec)': f"{res['rmse']:.2f}",
+        'R² Score': f"{res['r2']:.4f}",
+        'Relative Error (%)': f"{res['relative_error']:.2f}",
+        'CV MAE (sec)': f"{res['cv_mae']:.2f}"
+    }
+    for name, res in results.items()
+}).T
 
-current_distance = 3.847  
-current_time = time(9, 30, 0)
-current_day = 2  # Wednesday
+print(results_df)
+print("\n" + "="*80)
 
-# Actual stop locations on route
-route_stops = [1.0, 2.5, 4.2, 5.8, 7.3, 9.1, 10.5, 12.0, 13.6]
+# Find best model
+best_model_name = min(results.keys(), key=lambda k: results[k]['mae'])
+best_model = results[best_model_name]['model']
 
-predictions = predict_times_to_all_stops(
-    current_distance=current_distance,
-    time_of_day=current_time,
-    day_of_week=current_day,
-    all_stops_distances=route_stops,
-    model=model,
-    scaler=scaler
-)
+print(f"\nBest Model: {best_model_name}")
+print(f"MAE: {results[best_model_name]['mae']:.2f} seconds")
+print(f"Relative Error: {results[best_model_name]['relative_error']:.2f}%")
 
-print(f"\nBus currently at: {current_distance} km (arbitrary position)")
-print(f"Time: {current_time}, Day: Wednesday\n")
-print("Predictions for upcoming stops:")
-print("-" * 60)
+save_filename = 'prod_model.joblib'
 
-for stop_dist, seconds, minutes in predictions:
-    distance_remaining = stop_dist - current_distance
-    print(f"Stop at {stop_dist:.1f} km ({distance_remaining:.2f} km away): "
-          f"{int(seconds)} sec ({minutes:.1f} min)")
+dump(best_model, save_filename)

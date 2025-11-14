@@ -206,6 +206,11 @@ if __name__ == "__main__":
                     current_point = array_list[i]
                     current_distance = current_point[0]
                     current_timestamp = current_point[1]
+
+                    current_datetime = datetime.fromtimestamp(current_timestamp)
+                    current_hour = current_datetime.hour
+                    current_minute = current_datetime.minute
+                
                 
                     for j in range(i + 1, len(array_list)):
                         future_point = array_list[j]
@@ -216,7 +221,7 @@ if __name__ == "__main__":
                     
                         time_to_stop = future_timestamp - current_timestamp
                     
-                        features = create_enhanced_features(distance_to_stop, hour, minute, day_of_week, current_distance)
+                        features = create_enhanced_features(distance_to_stop, current_hour, current_minute, day_of_week, current_distance)
 
                         X_data.append(features)
                         y_data.append(time_to_stop)

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>250 Route Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif, serif;
+      background-color: #c8cacc;
+      text-align: center;
+    }
+    h2 {
+      margin: 10px 0;
+      color: #0d0808;
+    }
+    #map {
+      width: 100%;
+      height: 80vh; 
+      border-top: 2px solid #545353;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>250 Route Map</h2>
+  <div id="map"></div>
+
+  <script>
+    
+    var map = L.map('map').setView([37.56575, -122.32399], 13); // San Mateo
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    
+   // bus stop data: [stop_id, lat, lng, distance, stop_name, direction]
+const rawData = [
+  [341081, 37.533776, -122.337067, 0, 'CSM Transit Ctr', 1],
+  [341185, 37.531649, -122.332549, 42, 'W Hillsdale Blvd & Clearview Way', 1],
+  [341938, 37.532866, -122.326769, 67, 'Hillsdale Blvd & Glendora Dr', 1],
+  [341937, 37.529698, -122.321904, 88, 'Hillsdale Blvd & Caxton Ct', 1],
+  [341954, 37.530333, -122.311878, 124, 'Hillsdale Blvd at Fernwood St', 1],
+  [341190, 37.533781, -122.304168, 150, 'W Hillsdale Blvd & Hacienda St', 1],
+  [341544, 37.53525, -122.299696, 166, 'W Hillsdale Blvd & Edison St-Bay 7', 1],
+  [341152, 37.537881, -122.298087, 179, 'El Camino Real & Hillsdale Blvd', 1],
+  [341940, 37.540266, -122.29772, 192, 'Franklin Pkwy & Delaware St', 1],
+  [341951, 37.540653, -122.294822, 201, 'Franklin Pkwy & Curtis St', 1],
+  [341953, 37.542752, -122.292222, 209, 'Franklin Pkwy & Saratoga Dr', 1],
+  [341943, 37.542075, -122.290501, 224, 'Hillsdale Blvd & Saratoga Dr', 1],
+  [341304, 37.545367, -122.284425, 261, 'S Norfolk St & E Hillsdale Blvd', 1],
+  [341206, 37.543373, -122.284883, 271, 'La Selva St & Casa De Campo', 1],
+  [341084, 37.541109, -122.283775, 282, 'Casa De Campo & La Selva St', 1],
+  [341205, 37.54448, -122.283735, 298, 'La Selva St & Los Prados St', 1],
+  [341241, 37.546868, -122.28548, 313, 'S Norfolk St & E Hillsdale Blvd', 1],
+  [341244, 37.549416, -122.287988, 318, 'S Norfolk St & Marina Ct', 1],
+  [341236, 37.55332, -122.290693, 332, 'S Norfolk St & Fashion Island Blvd', 1],
+  [341254, 37.555816, -122.293497, 348, 'S Norfolk St & Susan Ct', 1],
+  [341252, 37.558055, -122.295882, 358, 'S Norfolk St & Stanford Ave', 1],
+  [341537, 37.561854, -122.299441, 365, 'S Norfolk St & Lodi Ave', 1],
+  [341538, 37.564273, -122.302019, 372, 'S Norfolk St & Kehoe Ave', 1],
+  [341234, 37.566961, -122.304487, 383, 'S Norfolk St & Dale Ave', 1],
+  [341232, 37.568567, -122.306237, 386, 'S Norfolk St & Cottage Grove Ave', 1],
+  [341250, 37.57199, -122.309963, 395, 'S Norfolk St & Shoreview Ave', 1],
+  [341026, 37.569311, -122.317067, 432, 'E 3rd Ave & S Humboldt St', 1],
+  [341025, 37.568257, -122.318563, 436, 'E 3rd Ave & S Fremont St', 1]
+];
+
+// coordinate
+const route = rawData.map(item => [item[1], item[2]]);
+
+
+// draw route polyline
+var line = L.polyline(route, { color: 'blue', weight: 4 }).addTo(map);
+map.fitBounds(line.getBounds());
+
+// 
+rawData.forEach((item, index) => {
+  const lat = item[1];
+  const lng = item[2];
+  const stopName = item[4];
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup("Site" + (index + 1) + " " + stopName);
+});
+
+// bus icon
+var busIcon = L.icon({
+  iconUrl: 'https://img.icons8.com/color/250/000000/bus.png',
+  iconSize: [30, 30]
+});
+var bus = L.marker(route[0], { icon: busIcon }).addTo(map);
+// animate bus along the route
+let i = 0;
+function moveBus() {
+  if (i < route.length) {
+    bus.setLatLng(route[i]);
+    i++;
+    setTimeout(moveBus, 2000); // move every 2 seconds
+  }
+}
+moveBus();
+
+  </script>
+</body>
+</html>

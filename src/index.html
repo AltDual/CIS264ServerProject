@@ -31,7 +31,49 @@
 <body>
   <h2>250 Route Map</h2>
   <div id="map"></div>
+  <div id="Json Route"></div>
+<script>
+  
+fetch("temp.json")
+  .then(res => res.json())
+  .then(data => {
 
+    const route250 = data["250"]["1"];
+    const key = Object.keys(route250)[0];
+    const records = route250[key];
+
+    const jsonRoute = records.map(r => [r[4], r[3]]);
+ 
+    L.polyline(jsonRoute, { color: "red" }).addTo(map);
+
+    const car = L.marker(jsonRoute[0]).addTo(map);
+
+    let i = 1; 
+    function moveCar() {
+      if (i < jsonRoute.length) {
+
+        const tNow = records[i][1];
+        const tPrev = records[i - 1][1];
+
+        const timeDiff = tNow - tPrev;
+
+        const delay = timeDiff * 100;
+
+        car.setLatLng(jsonRoute[i]);
+
+      
+        const distance = records[i][0];
+        car.bindPopup(`Distance: ${distance}<br>Time(sec): ${tNow}`);
+
+        i++;
+        setTimeout(moveCar, delay); 
+      }
+    }
+
+    moveCar(); 
+  });
+
+  </script>
   <script>
     
     var map = L.map('map').setView([37.56575, -122.32399], 13); // San Mateo
@@ -71,7 +113,8 @@ const rawData = [
   [341232, 37.568567, -122.306237, 386, 'S Norfolk St & Cottage Grove Ave', 1],
   [341250, 37.57199, -122.309963, 395, 'S Norfolk St & Shoreview Ave', 1],
   [341026, 37.569311, -122.317067, 432, 'E 3rd Ave & S Humboldt St', 1],
-  [341025, 37.568257, -122.318563, 436, 'E 3rd Ave & S Fremont St', 1]
+  [341025, 37.568257, -122.318563, 436, 'E 3rd Ave & S Fremont St', 1],
+  [341290, 37.565832, -122.325644, 458, 'S San Mateo Dr & 2nd Ave', 1]
 ];
 
 // coordinate

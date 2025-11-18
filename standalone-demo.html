@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SamTrans Route 250 - Live Tracking (Standalone Demo)</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    .leaflet-marker-icon {
+      border: none !important;
+      background: transparent !important;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    .blink {
+      animation: blink 1.5s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50">
+  <div id="app" class="min-h-screen p-6"></div>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    // Schedule data with coordinates
+    const scheduleData = {
+      weekday: {
+        eastbound: {
+          stops: [
+            { zone: 6, name: "Daly City BART", times: ["5:52am", "6:04am", "6:18am", "6:23am", "6:29am"], lat: 37.7062, lng: -122.4694 },
+            { zone: 6, name: "Serramonte Center", times: ["6:01am", "6:13am", "6:27am", "6:32am", "6:38am"], lat: 37.6697, lng: -122.4711 },
+            { zone: 5, name: "Westborough", times: ["6:08am", "6:20am", "6:34am", "6:39am", "6:45am"], lat: 37.6550, lng: -122.4650 },
+            { zone: 5, name: "Tanforan", times: ["6:14am", "6:26am", "6:40am", "6:45am", "6:51am"], lat: 37.6530, lng: -122.4220 },
+            { zone: 4, name: "Millbrae BART", times: ["6:22am", "6:34am", "6:48am", "6:53am", "6:59am"], lat: 37.5996, lng: -122.3869 },
+            { zone: 4, name: "Broadway", times: ["6:28am", "6:40am", "6:54am", "6:59am", "7:05am"], lat: 37.5950, lng: -122.3750 },
+            { zone: 3, name: "Foster City", times: ["6:35am", "6:47am", "7:01am", "7:06am", "7:12am"], lat: 37.5585, lng: -122.2711 },
+            { zone: 3, name: "San Mateo Bridge", times: ["6:42am", "6:54am", "7:08am", "7:13am", "7:19am"], lat: 37.5833, lng: -122.2500 }
+          ],
+          tripIds: ["503", "505", "507", "509", "511"]
+        },
+        westbound: {
+          stops: [
+            { zone: 3, name: "San Mateo Bridge", times: ["7:10am", "7:25am", "7:40am", "7:55am", "8:10am"], lat: 37.5833, lng: -122.2500 },
+            { zone: 3, name: "Foster City", times: ["7:17am", "7:32am", "7:47am", "8:02am", "8:17am"], lat: 37.5585, lng: -122.2711 },
+            { zone: 4, name: "Broadway", times: ["7:24am", "7:39am", "7:54am", "8:09am", "8:24am"], lat: 37.5950, lng: -122.3750 },
+            { zone: 4, name: "Millbrae BART", times: ["7:30am", "7:45am", "8:00am", "8:15am", "8:30am"], lat: 37.5996, lng: -122.3869 },
+            { zone: 5, name: "Tanforan", times: ["7:38am", "7:53am", "8:08am", "8:23am", "8:38am"], lat: 37.6530, lng: -122.4220 },
+            { zone: 5, name: "Westborough", times: ["7:44am", "7:59am", "8:14am", "8:29am", "8:44am"], lat: 37.6550, lng: -122.4650 },
+            { zone: 6, name: "Serramonte Center", times: ["7:51am", "8:06am", "8:21am", "8:36am", "8:51am"], lat: 37.6697, lng: -122.4711 },
+            { zone: 6, name: "Daly City BART", times: ["8:00am", "8:15am", "8:30am", "8:45am", "9:00am"], lat: 37.7062, lng: -122.4694 }
+          ],
+          tripIds: ["502", "504", "506", "508", "510"]
+        }
+      },
+      weekend: {
+        eastbound: {
+          stops: [
+            { zone: 6, name: "Daly City BART", times: ["7:00am", "8:00am", "9:00am", "10:00am", "11:00am"], lat: 37.7062, lng: -122.4694 },
+            { zone: 6, name: "Serramonte Center", times: ["7:09am", "8:09am", "9:09am", "10:09am", "11:09am"], lat: 37.6697, lng: -122.4711 },
+            { zone: 5, name: "Westborough", times: ["7:16am", "8:16am", "9:16am", "10:16am", "11:16am"], lat: 37.6550, lng: -122.4650 },
+            { zone: 5, name: "Tanforan", times: ["7:22am", "8:22am", "9:22am", "10:22am", "11:22am"], lat: 37.6530, lng: -122.4220 },
+            { zone: 4, name: "Millbrae BART", times: ["7:30am", "8:30am", "9:30am", "10:30am", "11:30am"], lat: 37.5996, lng: -122.3869 },
+            { zone: 4, name: "Broadway", times: ["7:36am", "8:36am", "9:36am", "10:36am", "11:36am"], lat: 37.5950, lng: -122.3750 },
+            { zone: 3, name: "Foster City", times: ["7:43am", "8:43am", "9:43am", "10:43am", "11:43am"], lat: 37.5585, lng: -122.2711 },
+            { zone: 3, name: "San Mateo Bridge", times: ["7:50am", "8:50am", "9:50am", "10:50am", "11:50am"], lat: 37.5833, lng: -122.2500 }
+          ],
+          tripIds: ["601", "602", "603", "604", "605"]
+        },
+        westbound: {
+          stops: [
+            { zone: 3, name: "San Mateo Bridge", times: ["8:00am", "9:00am", "10:00am", "11:00am", "12:00pm"], lat: 37.5833, lng: -122.2500 },
+            { zone: 3, name: "Foster City", times: ["8:07am", "9:07am", "10:07am", "11:07am", "12:07pm"], lat: 37.5585, lng: -122.2711 },
+            { zone: 4, name: "Broadway", times: ["8:14am", "9:14am", "10:14am", "11:14am", "12:14pm"], lat: 37.5950, lng: -122.3750 },
+            { zone: 4, name: "Millbrae BART", times: ["8:20am", "9:20am", "10:20am", "11:20am", "12:20pm"], lat: 37.5996, lng: -122.3869 },
+            { zone: 5, name: "Tanforan", times: ["8:28am", "9:28am", "10:28am", "11:28am", "12:28pm"], lat: 37.6530, lng: -122.4220 },
+            { zone: 5, name: "Westborough", times: ["8:34am", "9:34am", "10:34am", "11:34am", "12:34pm"], lat: 37.6550, lng: -122.4650 },
+            { zone: 6, name: "Serramonte Center", times: ["8:41am", "9:41am", "10:41am", "11:41am", "12:41pm"], lat: 37.6697, lng: -122.4711 },
+            { zone: 6, name: "Daly City BART", times: ["8:50am", "9:50am", "10:50am", "11:50am", "12:50pm"], lat: 37.7062, lng: -122.4694 }
+          ],
+          tripIds: ["610", "611", "612", "613", "614"]
+        }
+      }
+    };
+
+    // State
+    let dayType = 'weekday';
+    let direction = 'eastbound';
+    let selectedTrip = null;
+    let map = null;
+    let stopMarkers = [];
+    let busMarkers = [];
+    
+    // Bus data
+    let buses = [
+      { id: 'bus-1', vehicleNumber: '1234', tripId: '503', lat: 37.6550, lng: -122.4450, speed: 35, delay: 0, nextStop: 'Tanforan' },
+      { id: 'bus-2', vehicleNumber: '5678', tripId: '505', lat: 37.6000, lng: -122.3900, speed: 25, delay: 2, nextStop: 'Broadway' },
+      { id: 'bus-3', vehicleNumber: '9012', tripId: '507', lat: 37.5700, lng: -122.2900, speed: 40, delay: 5, nextStop: 'Foster City' }
+    ];
+
+    function getCurrentSchedule() {
+      return scheduleData[dayType][direction];
+    }
+
+    function initializeMap() {
+      if (map) {
+        map.remove();
+      }
+      
+      map = L.map('map').setView([37.6300, -122.3700], 11);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
+      }).addTo(map);
+      
+      updateStops();
+      updateBuses();
+    }
+
+    function updateStops() {
+      stopMarkers.forEach(marker => marker.remove());
+      stopMarkers = [];
+      
+      const schedule = getCurrentSchedule();
+      schedule.stops.forEach((stop, idx) => {
+        const icon = L.divIcon({
+          className: 'custom-stop-marker',
+          html: `<div style="width: 24px; height: 24px; background-color: #3B82F6; border: 3px solid white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: bold;">${idx + 1}</div>`,
+          iconSize: [24, 24],
+          iconAnchor: [12, 12]
+        });
+        
+        const marker = L.marker([stop.lat, stop.lng], { icon })
+          .addTo(map)
+          .bindPopup(`<strong>${stop.name}</strong><br/>Zone ${stop.zone}<br/>Stop ${idx + 1} of ${schedule.stops.length}`);
+        
+        stopMarkers.push(marker);
+      });
+      
+      const bounds = L.latLngBounds(schedule.stops.map(s => [s.lat, s.lng]));
+      map.fitBounds(bounds, { padding: [50, 50] });
+    }
+
+    function updateBuses() {
+      busMarkers.forEach(marker => marker.remove());
+      busMarkers = [];
+      
+      buses.forEach(bus => {
+        let color = '#10B981';
+        if (bus.delay > 0 && bus.delay <= 5) color = '#F59E0B';
+        else if (bus.delay > 5) color = '#EF4444';
+        
+        const icon = L.divIcon({
+          className: 'custom-bus-marker',
+          html: `<div style="width: 32px; height: 32px; background-color: ${color}; border: 3px solid white; border-radius: 50%; box-shadow: 0 3px 10px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h.01M17 14h.01M7 18h10"/></svg></div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
+        });
+        
+        const marker = L.marker([bus.lat, bus.lng], { icon })
+          .addTo(map)
+          .bindPopup(`<strong>🚌 Bus ${bus.vehicleNumber}</strong><br/>Trip: ${bus.tripId}<br/>Speed: ${bus.speed} mph<br/>Next Stop: ${bus.nextStop}<br/>${bus.delay > 0 ? `<span style="color: #EF4444; font-weight: bold;">⏱️ Delayed ${bus.delay} min</span>` : '<span style="color: #10B981; font-weight: bold;">✓ On time</span>'}`);
+        
+        busMarkers.push(marker);
+      });
+    }
+
+    function animateBuses() {
+      buses = buses.map(bus => ({
+        ...bus,
+        lat: bus.lat + (Math.random() - 0.5) * 0.002,
+        lng: bus.lng + (Math.random() - 0.2) * 0.003,
+        speed: Math.max(15, Math.min(50, bus.speed + (Math.random() - 0.5) * 10))
+      }));
+      updateBuses();
+    }
+
+    function renderScheduleTable() {
+      const schedule = getCurrentSchedule();
+      const tbody = document.getElementById('schedule-tbody');
+      tbody.innerHTML = '';
+      
+      schedule.stops.forEach((stop, stopIdx) => {
+        const tr = document.createElement('tr');
+        tr.className = `border-b border-gray-200 ${stopIdx % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-blue-50 transition-colors`;
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-center font-medium text-gray-700">${stop.zone}</td>
+          <td class="px-4 py-3 font-medium text-gray-800">${stop.name}</td>
+          ${stop.times.map((time, timeIdx) => `
+            <td class="px-3 py-3 text-center ${selectedTrip === timeIdx ? 'bg-yellow-100 font-bold' : 'text-gray-700'}">
+              ${time}
+            </td>
+          `).join('')}
+        `;
+        tbody.appendChild(tr);
+      });
+      
+      const thead = document.getElementById('schedule-thead');
+      thead.innerHTML = `
+        <tr class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+          <th class="px-4 py-3 text-left font-semibold">Zone</th>
+          <th class="px-4 py-3 text-left font-semibold min-w-[180px]">Station Name</th>
+          ${schedule.tripIds.map((id, idx) => `
+            <th class="px-3 py-3 text-center font-semibold min-w-[80px] cursor-pointer hover:bg-blue-700" 
+                onclick="toggleTrip(${idx})">
+              ${id}
+            </th>
+          `).join('')}
+        </tr>
+      `;
+    }
+
+    function toggleTrip(idx) {
+      selectedTrip = selectedTrip === idx ? null : idx;
+      renderScheduleTable();
+    }
+
+    function setDayType(type) {
+      dayType = type;
+      render();
+    }
+
+    function setDirection(dir) {
+      direction = dir;
+      render();
+    }
+
+    function render() {
+      renderScheduleTable();
+      updateStops();
+      updateBuses();
+      
+      document.getElementById('weekday-btn').className = 
+        dayType === 'weekday' 
+          ? 'px-4 py-2 rounded-md bg-blue-600 text-white shadow-md'
+          : 'px-4 py-2 rounded-md text-gray-700 hover:bg-gray-200';
+      
+      document.getElementById('weekend-btn').className = 
+        dayType === 'weekend' 
+          ? 'px-4 py-2 rounded-md bg-blue-600 text-white shadow-md'
+          : 'px-4 py-2 rounded-md text-gray-700 hover:bg-gray-200';
+      
+      document.getElementById('eastbound-btn').className = 
+        direction === 'eastbound' 
+          ? 'px-4 py-2 rounded-md bg-green-600 text-white shadow-md'
+          : 'px-4 py-2 rounded-md text-gray-700 hover:bg-gray-200';
+      
+      document.getElementById('westbound-btn').className = 
+        direction === 'westbound' 
+          ? 'px-4 py-2 rounded-md bg-green-600 text-white shadow-md'
+          : 'px-4 py-2 rounded-md text-gray-700 hover:bg-gray-200';
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('app').innerHTML = `
+        <div class="max-w-7xl mx-auto">
+          <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">🚌 Route 250 - SamTrans</h1>
+            <p class="text-gray-600 mb-4">Real-time schedule and tracking • Last updated: ${new Date().toLocaleTimeString()}</p>
+            
+            <div class="flex flex-wrap gap-4">
+              <div class="flex bg-gray-100 rounded-lg p-1">
+                <button id="weekday-btn" onclick="setDayType('weekday')">Weekday</button>
+                <button id="weekend-btn" onclick="setDayType('weekend')">Weekend</button>
+              </div>
+              <div class="flex bg-gray-100 rounded-lg p-1">
+                <button id="eastbound-btn" onclick="setDirection('eastbound')">→ Eastbound</button>
+                <button id="westbound-btn" onclick="setDirection('westbound')">← Westbound</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead id="schedule-thead"></thead>
+                <tbody id="schedule-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">📍 Live Bus Tracking</h2>
+            <div id="map" style="height: 500px; border-radius: 8px; border: 2px solid #E5E7EB;"></div>
+            <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 14px; color: #10B981;">
+              <div class="blink" style="width: 8px; height: 8px; background-color: #10B981; border-radius: 50%;"></div>
+              <span style="font-weight: 500;">Live tracking • Updates every 3 seconds</span>
+            </div>
+            
+            <div class="mt-4 flex flex-wrap gap-4 text-sm">
+              <div class="flex items-center gap-2">
+                <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+                <span>On-time</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                <span>Delayed 1-5 min</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+                <span>Delayed 5+ min</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+                <span>Bus stop</span>
+              </div>
+            </div>
+            
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+                <div class="font-semibold text-green-900">🚌 Bus 1234</div>
+                <p class="text-sm text-green-700">Trip 503 • On time</p>
+                <p class="text-xs text-green-600 mt-1">Next: Tanforan</p>
+              </div>
+              <div class="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+                <div class="font-semibold text-yellow-900">🚌 Bus 5678</div>
+                <p class="text-sm text-yellow-700">Trip 505 • 2 min delay</p>
+                <p class="text-xs text-yellow-600 mt-1">Next: Broadway</p>
+              </div>
+              <div class="bg-red-50 rounded-lg p-4 border border-red-200">
+                <div class="font-semibold text-red-900">🚌 Bus 9012</div>
+                <p class="text-sm text-red-700">Trip 507 • 5 min delay</p>
+                <p class="text-xs text-red-600 mt-1">Next: Foster City</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 text-center text-gray-600 text-sm">
+            <p>Times are approximate. Check real-time tracking for accurate arrival information.</p>
+            <p class="mt-2">💚 Powered by OpenStreetMap & Leaflet (100% Free & Open Source!)</p>
+          </div>
+        </div>
+      `;
+      
+      setTimeout(initializeMap, 100);
+      render();
+      
+      setInterval(animateBuses, 3000);
+    });
+  </script>
+</body>
+</html>

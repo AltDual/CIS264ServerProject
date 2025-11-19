@@ -216,7 +216,7 @@ function updateRouteFilter() {
   const select = document.getElementById('routeFilter');
   const currentValue = select.value;
   
-  select.innerHTML = '<option value="all">All Routes</option>';
+  select.innerHTML = '<option value="0">All Routes</option>';
   
   const sortedRoutes = Array.from(routes).sort((a, b) => {
     const aNum = parseInt(a);

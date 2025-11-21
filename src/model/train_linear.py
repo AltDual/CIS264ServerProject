@@ -233,6 +233,10 @@ X_train, X_test, y_train, y_test = train_test_split(X_data, y_data, test_size=0.
 # Train the model
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
+
+save_scaler_filename = 'prod_scaler_1.joblib'
+dump(scaler, save_scaler_filename)
+
 X_test_scaled = scaler.transform(X_test)
 
 
@@ -277,6 +281,5 @@ print(f"\nBest Model: {best_model_name}")
 print(f"MAE: {results[best_model_name]['mae']:.2f} seconds")
 print(f"Relative Error: {results[best_model_name]['relative_error']:.2f}%")
 
-save_filename = 'prod_model.joblib'
-
+save_filename = 'prod_model_1.joblib'
 dump(best_model, save_filename)

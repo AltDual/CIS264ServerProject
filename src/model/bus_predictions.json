@@ -1,262 +1,102 @@
 {
   "250": {
-    "1": {
-      "093000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.467784696156773,
-        "current_stop_index": 439,
-        "schedule_time": "093000",
-        "timestamp": 1762971181,
-        "current_time": "10:13:01",
-        "predictions": [
-          {
-            "stop_distance": 13.614587125205988,
-            "distance_to_stop": 0.14680242904921492,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "10:25:03",
-            "eta_timestamp": 1762971903.7791214
-          }
-        ]
-      },
-      "084500-151": {
-        "schedule_id": "151",
-        "current_distance": 13.475713897051097,
-        "current_stop_index": 439,
-        "schedule_time": "084500",
-        "timestamp": 1762969623,
-        "current_time": "09:47:03",
-        "predictions": [
-          {
-            "stop_distance": 13.477445220168867,
-            "distance_to_stop": 0.0017313231177702448,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "09:59:05",
-            "eta_timestamp": 1762970345.7791214
-          },
-          {
-            "stop_distance": 13.47832179851851,
-            "distance_to_stop": 0.002607901467412077,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "09:59:05",
-            "eta_timestamp": 1762970345.7791214
-          },
-          {
-            "stop_distance": 13.480011471742595,
-            "distance_to_stop": 0.0042975746914972746,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "09:59:05",
-            "eta_timestamp": 1762970345.7791214
-          },
-          {
-            "stop_distance": 13.482264041103036,
-            "distance_to_stop": 0.0065501440519391,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "09:59:05",
-            "eta_timestamp": 1762970345.7791214
-          },
-          {
-            "stop_distance": 13.484433953528423,
-            "distance_to_stop": 0.00872005647732621,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "09:59:05",
-            "eta_timestamp": 1762970345.7791214
-          },
-          {
-            "stop_distance": 13.486173987348698,
-            "distance_to_stop": 0.010460090297600644,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "09:59:05",
-            "eta_timestamp": 1762970345.7791214
-          }
-        ]
-      },
-      "090000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.58286537516341,
-        "current_stop_index": 443,
-        "schedule_time": "090000",
-        "timestamp": 1762969325,
-        "current_time": "09:42:05",
-        "predictions": [
-          {
-            "stop_distance": 13.614587125205988,
-            "distance_to_stop": 0.03172175004257838,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "09:54:07",
-            "eta_timestamp": 1762970047.7791214
-          }
-        ]
-      },
-      "100000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.482376848095356,
-        "current_stop_index": 439,
-        "schedule_time": "100000",
-        "timestamp": 1762973037,
-        "current_time": "10:43:57",
-        "predictions": [
-          {
-            "stop_distance": 13.614587125205988,
-            "distance_to_stop": 0.13221027711063194,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "10:55:59",
-            "eta_timestamp": 1762973759.7791214
-          }
-        ]
-      },
-      "103000-151": {
-        "schedule_id": "151",
-        "current_distance": 10.051372105721343,
-        "current_stop_index": 302,
-        "schedule_time": "103000",
-        "timestamp": 1762974105,
-        "current_time": "11:01:45",
-        "predictions": []
-      },
-      "110000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.403589147072914,
-        "current_stop_index": 438,
-        "schedule_time": "110000",
-        "timestamp": 1762977088,
-        "current_time": "11:51:28",
-        "predictions": [
-          {
-            "stop_distance": 13.404367523170004,
-            "distance_to_stop": 0.0007783760970898612,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "12:03:30",
-            "eta_timestamp": 1762977810.7791214
-          },
-          {
-            "stop_distance": 13.509602818160511,
-            "distance_to_stop": 0.10601367108759696,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "12:03:30",
-            "eta_timestamp": 1762977810.7791214
-          },
-          {
-            "stop_distance": 13.614587125205988,
-            "distance_to_stop": 0.21099797813307397,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "12:03:30",
-            "eta_timestamp": 1762977810.7791214
-          }
-        ]
-      },
-      "113000-151": {
-        "schedule_id": "151",
-        "current_distance": 8.87116932301336,
-        "current_stop_index": 264,
-        "schedule_time": "113000",
-        "timestamp": 1762977443,
-        "current_time": "11:57:23",
-        "predictions": [
-          {
-            "stop_distance": 8.873100908784764,
-            "distance_to_stop": 0.0019315857714037321,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "12:09:25",
-            "eta_timestamp": 1762978165.7791214
-          }
-        ]
-      }
-    },
     "0": {
-      "092000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.79922166216611,
-        "current_stop_index": 458,
-        "schedule_time": "092000",
-        "timestamp": 1762970501,
-        "current_time": "10:01:41",
-        "predictions": [
-          {
-            "stop_distance": 13.817153803081544,
-            "distance_to_stop": 0.017932140915434047,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "10:13:43",
-            "eta_timestamp": 1762971223.7791214
-          }
-        ]
-      },
-      "095000-151": {
-        "schedule_id": "151",
-        "current_distance": 10.813502203718507,
-        "current_stop_index": 376,
-        "schedule_time": "095000",
-        "timestamp": 1762971511,
-        "current_time": "10:18:31",
-        "predictions": []
-      },
-      "102000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.797355133768603,
-        "current_stop_index": 458,
-        "schedule_time": "102000",
-        "timestamp": 1762974044,
-        "current_time": "11:00:44",
-        "predictions": [
-          {
-            "stop_distance": 13.817153803081544,
-            "distance_to_stop": 0.01979866931294083,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "11:12:46",
-            "eta_timestamp": 1762974766.7791214
-          }
-        ]
-      },
-      "105000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.809653961399055,
-        "current_stop_index": 458,
-        "schedule_time": "105000",
-        "timestamp": 1762975903,
-        "current_time": "11:31:43",
-        "predictions": [
-          {
-            "stop_distance": 13.817153803081544,
-            "distance_to_stop": 0.007499841682488295,
-            "predicted_seconds": 722.7791213608066,
-            "predicted_minutes": 12.046318689346776,
-            "eta_time": "11:43:45",
-            "eta_timestamp": 1762976625.7791214
-          }
-        ]
-      },
-      "112000-151": {
-        "schedule_id": "151",
-        "current_distance": 13.004494568993223,
-        "current_stop_index": 439,
-        "schedule_time": "112000",
-        "timestamp": 1762977486,
-        "current_time": "11:58:06",
-        "predictions": []
-      },
-      "115000-151": {
-        "schedule_id": "151",
-        "current_distance": 3.819588921185877,
-        "current_stop_index": 149,
-        "schedule_time": "115000",
-        "timestamp": 1762977486,
-        "current_time": "11:58:06",
-        "predictions": []
-      }
+      "122500": [
+        {
+          "stop_distance": 14.0,
+          "distance_to_stop": 0.09919113036492533,
+          "predicted_minutes": 139.4355229543978
+        }
+      ],
+      "135500": [
+        {
+          "stop_distance": 14.0,
+          "distance_to_stop": 0.2504325414898023,
+          "predicted_minutes": 39.21699613153515
+        }
+      ],
+      "175500": [
+        {
+          "stop_distance": 14.0,
+          "distance_to_stop": 1.1569700931207159,
+          "predicted_minutes": 186.3519822361598
+        }
+      ],
+      "182700": [
+        {
+          "stop_distance": 3.0,
+          "distance_to_stop": 0.9981489284349752,
+          "predicted_minutes": 68.36473455075833
+        },
+        {
+          "stop_distance": 5.2,
+          "distance_to_stop": 3.1981489284349753,
+          "predicted_minutes": 306.2242310429569
+        },
+        {
+          "stop_distance": 8.1,
+          "distance_to_stop": 6.098148928434975,
+          "predicted_minutes": 942.5762446372217
+        },
+        {
+          "stop_distance": 11.5,
+          "distance_to_stop": 9.498148928434976,
+          "predicted_minutes": 1638.8064373006073
+        },
+        {
+          "stop_distance": 14.0,
+          "distance_to_stop": 11.998148928434976,
+          "predicted_minutes": 1724.4347374942736
+        }
+      ]
+    },
+    "1": {
+      "123200": [
+        {
+          "stop_distance": 14.0,
+          "distance_to_stop": 0.2540617851277318,
+          "predicted_minutes": 165.97587109915543
+        }
+      ],
+      "143200": [
+        {
+          "stop_distance": 11.5,
+          "distance_to_stop": 1.1455433506321242,
+          "predicted_minutes": 183.91943185942614
+        },
+        {
+          "stop_distance": 14.0,
+          "distance_to_stop": 3.645543350632124,
+          "predicted_minutes": 333.5925654448399
+        }
+      ],
+      "180500": [
+        {
+          "stop_distance": 3.0,
+          "distance_to_stop": 1.2631844083454575,
+          "predicted_minutes": 76.11558491161378
+        },
+        {
+          "stop_distance": 5.2,
+          "distance_to_stop": 3.463184408345458,
+          "predicted_minutes": 417.60943342221145
+        },
+        {
+          "stop_distance": 8.1,
+          "distance_to_stop": 6.363184408345457,
+          "predicted_minutes": 992.670692634394
+        },
+        {
+          "stop_distance": 11.5,
+          "distance_to_stop": 9.763184408345458,
+          "predicted_minutes": 1644.799533564467
+        },
+        {
+          "stop_distance": 14.0,
+          "distance_to_stop": 12.263184408345458,
+          "predicted_minutes": 1722.06495907244
+        }
+      ]
     }
   }
 }

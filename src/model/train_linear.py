@@ -8,7 +8,6 @@ from datetime import datetime , time
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor, ExtraTreesRegressor
 from sklearn.neighbors import KNeighborsRegressor
-from sklearn.svm import SVR
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -205,6 +204,8 @@ if __name__ == "__main__":
                 for i in range(len(array_list) - 1):
                     current_point = array_list[i]
                     current_distance = current_point[0]
+                    if current_distance == "sameAsBefore":
+                        continue
                     current_timestamp = current_point[1]
 
                     current_datetime = datetime.fromtimestamp(current_timestamp)

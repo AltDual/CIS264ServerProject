@@ -165,13 +165,13 @@ def predict_for_active_buses(active_buses, model, scaler, stop_distances_east, s
             scaled = scaler.transform(features)
 
             # Predict minutes
-            predicted_minutes = model.predict(scaled)[0]
+            predicted_seconds = model.predict(scaled)[0]
 
             # Store prediction
             bus_predictions.append({
                 "stop_distance": stop_distance,
                 "distance_to_stop": distance_to_stop,
-                "predicted_minutes": float(predicted_minutes)
+                "predicted_seconds": float(predicted_seconds)
             })
 
         # Store inside route → direction → bus

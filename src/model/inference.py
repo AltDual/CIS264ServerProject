@@ -129,7 +129,7 @@ def get_latest_distances(log_data2, unarrived):
     print(results)
     return results 
 
-def predict_for_active_buses(active_buses, model, scaler, stop_distances):
+def predict_for_active_buses(active_buses, model, scaler, stop_distances_east, stop_distances_west):
     predictions = {}
     
     for key, info in active_buses.items():
@@ -140,7 +140,12 @@ def predict_for_active_buses(active_buses, model, scaler, stop_distances):
         day_of_week = info["day_of_week"]
 
         # Stops ahead of the bus
-        upcoming_stops = [d for d in stop_distances if d > bus_distance]
+        if direction == "0":
+            stop_distances = stop_distances_east
+            upcoming_stops = [d for d in stop_distances if d > bus_distance]
+        else:
+            stop_distances = stop_distances_west
+            upcoming_stops = [d for d in stop_distances if d > bus_distance]
 
         bus_predictions = []
 
@@ -198,8 +203,8 @@ if __name__ == "__main__":
         active_buses=data_to_feed,
         model=model,
         scaler=scaler,
-        stop_distances_east=[]
-        stop_distances_west=[]
+        stop_distances_east= east,
+        stop_distances_west= west,
     )
     
     # Save to file

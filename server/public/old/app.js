@@ -291,19 +291,6 @@ async function fetchVehicleData() {
     loadingIndicator.classList.add('active');
     errorMessage.style.display = 'none';
 
-//    // Try direct API call first
-//    let response;
-//    try {
-//      response = await fetch('/get-vehicle-positions');
-//      if (!response.ok) throw new Error('Direct fetch failed');
-//    } catch (directError) {
-//      // Fallback to CORS proxy
-//      response = await fetch(CONFIG.corsProxy + encodeURIComponent(CONFIG.apiUrl));
-//    }
-//
-//    if (!response.ok) {
-//      throw new Error(`HTTP error! status: ${response.status}`);
-//    }
     response = await fetch('/get-vehicle-positions');
 
     const data = await response.json();

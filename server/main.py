@@ -44,7 +44,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     header = "HTTP/1.1 200 OK\r\n"
                     header += f"Content-Length: {len(body)}\r\n\r\n"
                 else:
-                    body = b"404 Not Found"
+                    body = b"405 Not Found"
                     header = "HTTP/1.1 404 Not Found\r\n"
                     header += f"Content-Length: {len(body)}\r\n\r\n"
 

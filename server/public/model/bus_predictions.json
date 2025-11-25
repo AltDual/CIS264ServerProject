@@ -1,0 +1,440 @@
+{
+  "250": {
+    "0": {
+      "122500": [],
+      "135500": [
+        {
+          "stop_distance": 13.781127185424491,
+          "distance_to_stop": 0.03155972691429376,
+          "predicted_seconds": 30.055588441375203,
+          "latitude": 37.56578,
+          "longitude": -122.325508
+        }
+      ],
+      "175500": [
+        {
+          "stop_distance": 13.431414750676824,
+          "distance_to_stop": 0.5883848437975399,
+          "predicted_seconds": 89.3297797095908,
+          "latitude": 37.5678444,
+          "longitude": -122.319084
+        },
+        {
+          "stop_distance": 13.781127185424491,
+          "distance_to_stop": 0.9380972785452073,
+          "predicted_seconds": 171.3950244411667,
+          "latitude": 37.5678444,
+          "longitude": -122.319084
+        }
+      ],
+      "182700": [
+        {
+          "stop_distance": 2.0433157015629186,
+          "distance_to_stop": 0.0414646299978938,
+          "predicted_seconds": 97.30065198581086,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 3.0016556285881317,
+          "distance_to_stop": 0.9998045570231069,
+          "predicted_seconds": 68.40288154094391,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 3.803034397854591,
+          "distance_to_stop": 1.801183326289566,
+          "predicted_seconds": 117.2364224675112,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 4.245779857152756,
+          "distance_to_stop": 2.243928785587731,
+          "predicted_seconds": 182.21757298039884,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 4.6478463698669,
+          "distance_to_stop": 2.6459952983018753,
+          "predicted_seconds": 332.4947142424395,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 5.077275879231455,
+          "distance_to_stop": 3.07542480766643,
+          "predicted_seconds": 255.17595134310636,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 5.340266401713982,
+          "distance_to_stop": 3.338415330148957,
+          "predicted_seconds": 347.8111324659005,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 5.677034456062003,
+          "distance_to_stop": 3.6751833844969783,
+          "predicted_seconds": 476.0907129604728,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 5.989175257860291,
+          "distance_to_stop": 3.987324186295266,
+          "predicted_seconds": 602.2128317489949,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 6.759200722219969,
+          "distance_to_stop": 4.757349650654945,
+          "predicted_seconds": 790.0541652838926,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 7.028140102788026,
+          "distance_to_stop": 5.026289031223001,
+          "predicted_seconds": 830.9092295925394,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 7.356994196295995,
+          "distance_to_stop": 5.35514312473097,
+          "predicted_seconds": 855.7475516613102,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 7.8714932399301665,
+          "distance_to_stop": 5.869642168365141,
+          "predicted_seconds": 914.4816504895722,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 8.190016343415323,
+          "distance_to_stop": 6.188165271850298,
+          "predicted_seconds": 950.9778137179418,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 8.550057733385582,
+          "distance_to_stop": 6.548206661820558,
+          "predicted_seconds": 1056.5139565822867,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 9.050187336043868,
+          "distance_to_stop": 7.048336264478843,
+          "predicted_seconds": 1151.7104205015114,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 9.422471165440697,
+          "distance_to_stop": 7.420620093875673,
+          "predicted_seconds": 1233.0916029330178,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 9.75165551600816,
+          "distance_to_stop": 7.749804444443136,
+          "predicted_seconds": 1330.0298042393063,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 10.277448023655307,
+          "distance_to_stop": 8.275596952090282,
+          "predicted_seconds": 1414.4866077116185,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 10.629387460472039,
+          "distance_to_stop": 8.627536388907014,
+          "predicted_seconds": 1464.181424437899,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 11.001421709396517,
+          "distance_to_stop": 8.999570637831493,
+          "predicted_seconds": 1552.591407795648,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 11.237765271852501,
+          "distance_to_stop": 9.235914200287477,
+          "predicted_seconds": 1607.86537797845,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 11.740481141344224,
+          "distance_to_stop": 9.7386300697792,
+          "predicted_seconds": 1640.4279902964186,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 12.60168425891591,
+          "distance_to_stop": 10.599833187350885,
+          "predicted_seconds": 1711.8020705346921,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 12.777338103382004,
+          "distance_to_stop": 10.77548703181698,
+          "predicted_seconds": 1716.2676158830798,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 13.431414750676824,
+          "distance_to_stop": 11.4295636791118,
+          "predicted_seconds": 1721.3216222649783,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        },
+        {
+          "stop_distance": 13.781127185424491,
+          "distance_to_stop": 11.779276113859467,
+          "predicted_seconds": 1721.6016126413997,
+          "latitude": 37.5301132,
+          "longitude": -122.322021
+        }
+      ]
+    },
+    "1": {
+      "123200": [],
+      "143200": [
+        {
+          "stop_distance": 10.976378145275987,
+          "distance_to_stop": 0.6219214959081114,
+          "predicted_seconds": 104.86765996399012,
+          "latitude": 37.5319862,
+          "longitude": -122.308044
+        },
+        {
+          "stop_distance": 11.857998517677489,
+          "distance_to_stop": 1.503541868309613,
+          "predicted_seconds": 236.08657691275187,
+          "latitude": 37.5319862,
+          "longitude": -122.308044
+        },
+        {
+          "stop_distance": 12.37425966338204,
+          "distance_to_stop": 2.0198030140141636,
+          "predicted_seconds": 286.85286802853807,
+          "latitude": 37.5319862,
+          "longitude": -122.308044
+        },
+        {
+          "stop_distance": 12.951538826226493,
+          "distance_to_stop": 2.597082176858617,
+          "predicted_seconds": 317.41796698107856,
+          "latitude": 37.5319862,
+          "longitude": -122.308044
+        },
+        {
+          "stop_distance": 13.556968021244185,
+          "distance_to_stop": 3.2025113718763087,
+          "predicted_seconds": 318.07551648597655,
+          "latitude": 37.5319862,
+          "longitude": -122.308044
+        }
+      ],
+      "180500": [
+        {
+          "stop_distance": 2.0678116193376246,
+          "distance_to_stop": 0.3309960276830821,
+          "predicted_seconds": 48.32771213179116,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 2.578541734661294,
+          "distance_to_stop": 0.8417261430067515,
+          "predicted_seconds": 65.0342958913938,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 2.7683506666430917,
+          "distance_to_stop": 1.0315350749885492,
+          "predicted_seconds": 70.52127042534306,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 3.125056727091213,
+          "distance_to_stop": 1.3882411354366704,
+          "predicted_seconds": 112.52961013440664,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 3.486990021780344,
+          "distance_to_stop": 1.7501744301258013,
+          "predicted_seconds": 124.3134558004522,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 4.014212920772286,
+          "distance_to_stop": 2.2773973291177434,
+          "predicted_seconds": 320.718758514427,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 4.401189943922001,
+          "distance_to_stop": 2.6643743522674583,
+          "predicted_seconds": 341.57652536111596,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 4.65378447759024,
+          "distance_to_stop": 2.916968885935698,
+          "predicted_seconds": 372.7009343429022,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 5.227738636367143,
+          "distance_to_stop": 3.490923044712601,
+          "predicted_seconds": 418.7168770262327,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 5.754130232754605,
+          "distance_to_stop": 4.017314641100063,
+          "predicted_seconds": 608.7066608996106,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 6.0230696133226616,
+          "distance_to_stop": 4.286254021668119,
+          "predicted_seconds": 700.0755331209865,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 6.351923706830631,
+          "distance_to_stop": 4.615108115176088,
+          "predicted_seconds": 770.8343823959755,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 6.866422750464802,
+          "distance_to_stop": 5.12960715881026,
+          "predicted_seconds": 853.635921501344,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 8.088556018850916,
+          "distance_to_stop": 6.351740427196374,
+          "predicted_seconds": 991.269252660556,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 8.413477229819302,
+          "distance_to_stop": 6.676661638164759,
+          "predicted_seconds": 1099.7243846571062,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 8.670648584258236,
+          "distance_to_stop": 6.933832992603694,
+          "predicted_seconds": 1140.4429765473642,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 9.000866872340007,
+          "distance_to_stop": 7.2640512806854645,
+          "predicted_seconds": 1210.6153937219585,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 9.49369459734696,
+          "distance_to_stop": 7.756879005692419,
+          "predicted_seconds": 1309.2281593622213,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 9.998873580264616,
+          "distance_to_stop": 8.262057988610074,
+          "predicted_seconds": 1407.543297630926,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 10.34263310258002,
+          "distance_to_stop": 8.605817510925478,
+          "predicted_seconds": 1459.6627007297243,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 10.976378145275987,
+          "distance_to_stop": 9.239562553621445,
+          "predicted_seconds": 1613.514116808989,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 11.857998517677489,
+          "distance_to_stop": 10.121182926022946,
+          "predicted_seconds": 1692.7004087215143,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 12.37425966338204,
+          "distance_to_stop": 10.637444071727497,
+          "predicted_seconds": 1716.2799472849767,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 12.951538826226493,
+          "distance_to_stop": 11.21472323457195,
+          "predicted_seconds": 1721.3680793300548,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        },
+        {
+          "stop_distance": 13.556968021244185,
+          "distance_to_stop": 11.820152429589642,
+          "predicted_seconds": 1721.9207446864407,
+          "latitude": 37.5724373,
+          "longitude": -122.312218
+        }
+      ]
+    }
+  }
+}

@@ -114,6 +114,8 @@ def get_latest_distances(log_data2, unarrived):
                         last_element = trip_data[-1]  # last element of the trip's array
                         # assuming last_element itself is a list and you want the whole thing
                         distance = last_element[0]
+                        latitude = last_element[4]
+                        longitude = last_element[3]
                         timestamp = datetime.fromtimestamp(last_element[1])
                         hour = timestamp.hour
                         minute = timestamp.minute
@@ -123,7 +125,9 @@ def get_latest_distances(log_data2, unarrived):
                                 "distance": distance,
                                 "hour": hour,
                                 "minute": minute,
-                                "day_of_week": day_of_week
+                                "day_of_week": day_of_week,
+                                "latitude": latitude,
+                                "longitude": longitude
                         }
                     break  # stop searching trip_ids if found   
     print(results)
@@ -138,6 +142,8 @@ def predict_for_active_buses(active_buses, model, scaler, stop_distances_east, s
         hour = info["hour"]
         minute = info["minute"]
         day_of_week = info["day_of_week"]
+        latitude = info["latitude"]
+        longitude = info["longitude"]
 
         # Stops ahead of the bus
         if direction == "0":
@@ -171,7 +177,9 @@ def predict_for_active_buses(active_buses, model, scaler, stop_distances_east, s
             bus_predictions.append({
                 "stop_distance": stop_distance,
                 "distance_to_stop": distance_to_stop,
-                "predicted_seconds": float(predicted_seconds)
+                "predicted_seconds": float(predicted_seconds),
+                "latitude": latitude,
+                "longitude": longitude
             })
 
         # Store inside route → direction → bus

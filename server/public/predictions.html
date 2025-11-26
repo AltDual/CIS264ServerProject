@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Route 250 Predictions & Schedule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #003f87 0%, #ff6600 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+    }
+
+    /* Controls */
+    .controls {
+      background-color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .control-btn {
+      padding: 10px 20px;
+      background-color: #003f87;
+      color: white;
+      border: 2px solid #003f87;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .control-btn:hover {
+      background-color: #00254d;
+    }
+
+    .control-btn.active {
+      background-color: white;
+      color: #003f87;
+    }
+
+    /* Info Panel */
+    .info-panel {
+      background-color: white;
+      padding: 15px;
+      margin: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      padding: 5px 15px;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #666;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #003f87;
+    }
+
+    /* Schedule Table Section */
+    .schedule-container {
+      margin: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .schedule-header {
+      background: #f8f9fa;
+      padding: 15px 20px;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .schedule-header h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #003f87;
+    }
+
+    .no-buses-message {
+      padding: 40px;
+      text-align: center;
+      color: #999;
+      font-size: 16px;
+    }
+
+    /* Table Styles */
+    .table-wrapper {
+      overflow-x: auto;
+      max-height: 600px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead {
+      background: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    th {
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 2px solid #dee2e6;
+      white-space: nowrap;
+    }
+
+    th:first-child {
+      position: sticky;
+      left: 0;
+      background: #f8f9fa;
+      z-index: 11;
+      min-width: 220px;
+      border-right: 2px solid #dee2e6;
+    }
+
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    td:first-child {
+      position: sticky;
+      left: 0;
+      background: white;
+      font-weight: 500;
+      color: #333;
+      min-width: 220px;
+      border-right: 2px solid #eee;
+    }
+
+    tbody tr:hover td {
+      background: #f8f9fa;
+    }
+
+    tbody tr:hover td:first-child {
+      background: #f8f9fa;
+    }
+
+    .bus-column-header {
+      text-align: center;
+      color: #003f87;
+      font-weight: 700;
+    }
+
+    .bus-cell {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .arrival-time {
+      display: block;
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .arrival-soon {
+      color: #28a745;
+    }
+
+    .arrival-normal {
+      color: #003f87;
+    }
+
+    .arrival-passed {
+      color: #999;
+    }
+
+    .minutes-away {
+      font-size: 11px;
+      color: #666;
+      font-weight: normal;
+    }
+
+    .passed-text {
+      color: #999;
+      font-size: 12px;
+    }
+
+    /* Map Section */
+    .map-container {
+      margin: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .map-header {
+      background: #f8f9fa;
+      padding: 15px 20px;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .map-header h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #003f87;
+    }
+
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+
+    /* Bus Marker */
+    .bus-marker {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #28a745;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 10px;
+      border: 3px solid white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .prediction-info {
+      background-color: #ecf0f1;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border-left: 4px solid #27ae60;
+    }
+
+    .prediction-time {
+      color: #27ae60;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>🚌 SamTrans Route 250 - Live Predictions</h1>
+    <p>Real-time arrival predictions and GPS tracking</p>
+  </div>
+   
+  <div class="controls">
+    <button id="direction1" class="control-btn active">Eastbound: CSM → Downtown</button>
+    <button id="direction2" class="control-btn">Westbound: Downtown → CSM</button>
+    <button id="refreshData" class="control-btn">Refresh Data</button>
+  </div>
+
+  <div class="info-panel">
+    <div class="info-item">
+      <div class="info-label">Last Updated</div>
+      <div class="info-value" id="lastUpdated">Loading...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Active Buses</div>
+      <div class="info-value" id="activeBuses">0</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Current Direction</div>
+      <div class="info-value" id="currentDirection">Eastbound</div>
+    </div>
+  </div>
+
+  <!-- Schedule Table -->
+  <div class="schedule-container">
+    <div class="schedule-header">
+      <h2>📅 Arrival Schedule by Stop</h2>
+    </div>
+    <div id="scheduleTable">
+      <div class="no-buses-message">Loading predictions...</div>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  <div class="map-container">
+    <div class="map-header">
+      <h2>🗺️ Live GPS Tracking Map</h2>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <script>
+    // =============================================
+    // DATA & CONFIGURATION
+    // =============================================
+
+    const STOPS_DATA = {
+      eastbound: [
+        { name: "CSM Transit Ctr", lat: 37.533776, lng: -122.337067, distance: 0.0 },
+        { name: "W Hillsdale Blvd & Clearview Way", lat: 37.531649, lng: -122.332549, distance: 0.8757816419538114 },
+        { name: "Hillsdale Blvd & Glendora Dr", lat: 37.532866, lng: -122.326769, distance: 1.4135242581399028 },
+        { name: "Hillsdale Blvd & Caxton Ct", lat: 37.529698, lng: -122.321904, distance: 2.0433157015629186 },
+        { name: "Hillsdale Blvd at Fernwood St", lat: 37.530333, lng: -122.311878, distance: 3.0016556285881317 },
+        { name: "W Hillsdale Blvd & Hacienda St", lat: 37.533781, lng: -122.304168, distance: 3.803034397854591 },
+        { name: "W Hillsdale Blvd & Edison St-Bay 7", lat: 37.53525, lng: -122.299696, distance: 4.245779857152756 },
+        { name: "El Camino Real & Hillsdale Blvd", lat: 37.537881, lng: -122.298087, distance: 4.6478463698669 },
+        { name: "Franklin Pkwy & Delaware St", lat: 37.540266, lng: -122.29772, distance: 5.077275879231455 },
+        { name: "Franklin Pkwy & Curtis St", lat: 37.540653, lng: -122.294822, distance: 5.340266401713982 },
+        { name: "Franklin Pkwy & Saratoga Dr", lat: 37.542752, lng: -122.292222, distance: 5.677034456062003 },
+        { name: "Hillsdale Blvd & Saratoga Dr", lat: 37.542075, lng: -122.290501, distance: 5.989175257860291 },
+        { name: "S Norfolk St & E Hillsdale Blvd", lat: 37.545367, lng: -122.284425, distance: 6.759200722219969 },
+        { name: "La Selva St & Casa De Campo", lat: 37.543373, lng: -122.284883, distance: 7.028140102788026 },
+        { name: "Casa De Campo & La Selva St", lat: 37.541109, lng: -122.283775, distance: 7.356994196295995 },
+        { name: "La Selva St & Los Prados St", lat: 37.54448, lng: -122.283735, distance: 7.8714932399301665 },
+        { name: "S Norfolk St & E Hillsdale Blvd", lat: 37.546868, lng: -122.28548, distance: 8.190016343415323 },
+        { name: "S Norfolk St & Marina Ct", lat: 37.549416, lng: -122.287988, distance: 8.550057733385582 },
+        { name: "S Norfolk St & Fashion Island Blvd", lat: 37.55332, lng: -122.290693, distance: 9.050187336043868 },
+        { name: "S Norfolk St & Susan Ct", lat: 37.555816, lng: -122.293497, distance: 9.422471165440697 },
+        { name: "S Norfolk St & Stanford Ave", lat: 37.558055, lng: -122.295882, distance: 9.75165551600816 },
+        { name: "S Norfolk St & Lodi Ave", lat: 37.561854, lng: -122.299441, distance: 10.277448023655307 },
+        { name: "S Norfolk St & Kehoe Ave", lat: 37.564273, lng: -122.302019, distance: 10.629387460472039 },
+        { name: "S Norfolk St & Dale Ave", lat: 37.566961, lng: -122.304487, distance: 11.001421709396517 },
+        { name: "S Norfolk St & Cottage Grove Ave", lat: 37.568567, lng: -122.306237, distance: 11.237765271852501 },
+        { name: "S Norfolk St & Shoreview Ave", lat: 37.57199, lng: -122.309963, distance: 11.740481141344224 },
+        { name: "E 3rd Ave & S Humboldt St", lat: 37.569311, lng: -122.317067, distance: 12.60168425891591 },
+        { name: "E 3rd Ave & S Fremont St", lat: 37.568257, lng: -122.318563, distance: 12.777338103382004 },
+        { name: "1st Ave & B St.", lat: 37.567253, lng: -122.323858, distance: 13.431414750676824 },
+        { name: "S San Mateo Dr & 2nd Ave", lat: 37.565832, lng: -122.325644, distance: 13.781127185424491 }
+      ],
+      westbound: [
+        { name: "S San Mateo Dr & 2nd Ave", lat: 37.565832, lng: -122.325644, distance: 0.0 },
+        { name: "1st Ave & B St.", lat: 37.567253, lng: -122.323858, distance: 0.433213231737939 },
+        { name: "E 3rd Ave & S Fremont St", lat: 37.568257, lng: -122.318563, distance: 0.836382981009855 },
+        { name: "E 3rd Ave & S Humboldt St", lat: 37.569311, lng: -122.317067, distance: 1.1470114976539618 },
+        { name: "S Norfolk St & Shoreview Ave", lat: 37.57199, lng: -122.309963, distance: 2.0678116193376246 },
+        { name: "S Norfolk St & Cottage Grove Ave", lat: 37.568567, lng: -122.306237, distance: 2.578541734661294 },
+        { name: "S Norfolk St & Dale Ave", lat: 37.566961, lng: -122.304487, distance: 2.7683506666430917 },
+        { name: "S Norfolk St & Kehoe Ave", lat: 37.564273, lng: -122.302019, distance: 3.125056727091213 },
+        { name: "S Norfolk St & Lodi Ave", lat: 37.561854, lng: -122.299441, distance: 3.486990021780344 },
+        { name: "S Norfolk St & Stanford Ave", lat: 37.558055, lng: -122.295882, distance: 4.014212920772286 },
+        { name: "S Norfolk St & Susan Ct", lat: 37.555816, lng: -122.293497, distance: 4.401189943922001 },
+        { name: "S Norfolk St & Fashion Island Blvd", lat: 37.55332, lng: -122.290693, distance: 4.65378447759024 },
+        { name: "S Norfolk St & Marina Ct", lat: 37.549416, lng: -122.287988, distance: 5.227738636367143 },
+        { name: "S Norfolk St & E Hillsdale Blvd", lat: 37.546868, lng: -122.28548, distance: 5.754130232754605 },
+        { name: "La Selva St & Los Prados St", lat: 37.54448, lng: -122.283735, distance: 6.0230696133226616 },
+        { name: "Casa De Campo & La Selva St", lat: 37.541109, lng: -122.283775, distance: 6.351923706830631 },
+        { name: "La Selva St & Casa De Campo", lat: 37.543373, lng: -122.284883, distance: 6.866422750464802 },
+        { name: "S Norfolk St & E Hillsdale Blvd", lat: 37.545367, lng: -122.284425, distance: 8.088556018850916 },
+        { name: "Hillsdale Blvd & Saratoga Dr", lat: 37.542075, lng: -122.290501, distance: 8.413477229819302 },
+        { name: "Franklin Pkwy & Saratoga Dr", lat: 37.542752, lng: -122.292222, distance: 8.670648584258236 },
+        { name: "Franklin Pkwy & Curtis St", lat: 37.540653, lng: -122.294822, distance: 9.000866872340007 },
+        { name: "Franklin Pkwy & Delaware St", lat: 37.540266, lng: -122.29772, distance: 9.49369459734696 },
+        { name: "El Camino Real & Hillsdale Blvd", lat: 37.537881, lng: -122.298087, distance: 9.998873580264616 },
+        { name: "W Hillsdale Blvd & Edison St-Bay 7", lat: 37.53525, lng: -122.299696, distance: 10.34263310258002 },
+        { name: "W Hillsdale Blvd & Hacienda St", lat: 37.533781, lng: -122.304168, distance: 10.976378145275987 },
+        { name: "Hillsdale Blvd at Fernwood St", lat: 37.530333, lng: -122.311878, distance: 11.857998517677489 },
+        { name: "Hillsdale Blvd & Caxton Ct", lat: 37.529698, lng: -122.321904, distance: 12.37425966338204 },
+        { name: "Hillsdale Blvd & Glendora Dr", lat: 37.532866, lng: -122.326769, distance: 12.951538826226493 },
+        { name: "W Hillsdale Blvd & Clearview Way", lat: 37.531649, lng: -122.332549, distance: 13.556968021244185 }
+      ]
+    };
+
+    // Global State
+    let PREDICTION_DATA = {};
+    let currentDirection = 'eastbound';
+    let map;
+    let busMarkers = {};
+    let stopMarkers = {};
+
+    // =============================================
+    // HELPER FUNCTIONS
+    // =============================================
+
+    function simplifyBusId(fullId) {
+      return fullId.substring(0, 4);
+    }
+
+    function formatArrivalTime(predictedSeconds) {
+      const now = new Date();
+      const arrivalTime = new Date(now.getTime() + predictedSeconds * 1000);
+      
+      const hours = arrivalTime.getHours();
+      const minutes = arrivalTime.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const displayHours = hours % 12 || 12;
+      const displayMinutes = minutes.toString().padStart(2, '0');
+      
+      const minutesAway = Math.round(predictedSeconds / 60);
+      
+      return {
+        timeString: `${displayHours}:${displayMinutes} ${ampm}`,
+        minutes: minutesAway
+      };
+    }
+
+    function findPredictionForStop(predictions, stopDistance) {
+      return predictions.find(p => Math.abs(p.stop_distance - stopDistance) < 0.01);
+    }
+
+    // =============================================
+    // DATA LOADING
+    // =============================================
+
+    async function loadBusData() {
+      try {
+        const response = await fetch('bus_predictions.json');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        PREDICTION_DATA = await response.json();
+        console.log("✅ Predictions loaded successfully");
+        
+        updateScheduleTable();
+        updateInfoPanel();
+        updateBusMarkers();
+
+      } catch (error) {
+        console.error("❌ Could not load bus data:", error);
+        document.getElementById('scheduleTable').innerHTML = 
+          '<div class="no-buses-message">Error loading predictions. Make sure inference.py has been run.</div>';
+      }
+    }
+
+    // =============================================
+    // SCHEDULE TABLE FUNCTIONS
+    // =============================================
+
+    function updateScheduleTable() {
+      const container = document.getElementById('scheduleTable');
+      
+      if (!PREDICTION_DATA || !PREDICTION_DATA['250']) {
+        container.innerHTML = '<div class="no-buses-message">No prediction data available</div>';
+        return;
+      }
+
+      const directionId = currentDirection === 'eastbound' ? '0' : '1';
+      const busesByDirection = PREDICTION_DATA['250'][directionId] || {};
+      
+      const activeBuses = Object.keys(busesByDirection).filter(
+        busId => busesByDirection[busId].length > 0
+      );
+
+      if (activeBuses.length === 0) {
+        container.innerHTML = '<div class="no-buses-message">No active buses for this direction</div>';
+        return;
+      }
+
+      // Build table
+      let html = '<div class="table-wrapper"><table>';
+      
+      // Header
+      html += '<thead><tr><th>Stop Name</th>';
+      activeBuses.forEach(busId => {
+        html += `<th class="bus-column-header">Bus ${simplifyBusId(busId)}</th>`;
+      });
+      html += '</tr></thead>';
+
+      // Body
+      html += '<tbody>';
+      const stops = STOPS_DATA[currentDirection];
+      
+      stops.forEach(stop => {
+        html += '<tr>';
+        html += `<td>${stop.name}</td>`;
+
+        activeBuses.forEach(busId => {
+          const predictions = busesByDirection[busId];
+          const prediction = findPredictionForStop(predictions, stop.distance);
+
+          if (prediction) {
+            const { timeString, minutes } = formatArrivalTime(prediction.predicted_seconds);
+            const cssClass = minutes <= 5 ? 'arrival-soon' : 'arrival-normal';
+            
+            html += `<td class="bus-cell">
+              <span class="arrival-time ${cssClass}">${timeString}</span>
+              <span class="minutes-away">(${minutes} min)</span>
+            </td>`;
+          } else {
+            // Check if bus has passed this stop
+            const firstPrediction = predictions[0];
+            const hasPassed = firstPrediction && firstPrediction.stop_distance > stop.distance;
+            
+            if (hasPassed) {
+              html += '<td class="bus-cell"><span class="passed-text">Passed ✓</span></td>';
+            } else {
+              html += '<td class="bus-cell">—</td>';
+            }
+          }
+        });
+
+        html += '</tr>';
+      });
+
+      html += '</tbody></table></div>';
+      container.innerHTML = html;
+    }
+
+    // =============================================
+    // INFO PANEL FUNCTIONS
+    // =============================================
+
+    function updateInfoPanel() {
+      const now = new Date();
+      document.getElementById('lastUpdated').textContent = 
+        now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+      const activeBusCount = getActiveBusCount();
+      document.getElementById('activeBuses').textContent = activeBusCount;
+
+      document.getElementById('currentDirection').textContent = 
+        currentDirection === 'eastbound' ? 'Eastbound' : 'Westbound';
+    }
+
+    function getActiveBusCount() {
+      if (!PREDICTION_DATA || !PREDICTION_DATA['250']) return 0;
+      
+      const directionId = currentDirection === 'eastbound' ? '0' : '1';
+      const buses = PREDICTION_DATA['250'][directionId] || {};
+      
+      return Object.keys(buses).filter(busId => buses[busId].length > 0).length;
+    }
+
+    // =============================================
+    // MAP FUNCTIONS
+    // =============================================
+
+    function initMap() {
+      map = L.map('map').setView([37.55, -122.31], 12);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
+      }).addTo(map);
+
+      drawStops();
+      updateBusMarkers();
+    }
+
+    function drawStops() {
+      // Clear existing stop markers
+      Object.values(stopMarkers).forEach(marker => map.removeLayer(marker));
+      stopMarkers = {};
+
+      const stops = STOPS_DATA[currentDirection];
+      const color = currentDirection === 'eastbound' ? '#003f87' : '#ff6600';
+
+      stops.forEach((stop, index) => {
+        const marker = L.circleMarker([stop.lat, stop.lng], {
+          radius: 6,
+          color: 'white',
+          fillColor: color,
+          fillOpacity: 1,
+          weight: 2
+        }).addTo(map);
+
+        marker.bindPopup(`<b>Stop ${index + 1}</b><br>${stop.name}`);
+        stopMarkers[`${currentDirection}_${index}`] = marker;
+      });
+    }
+
+    function createBusIcon(busId) {
+      return L.divIcon({
+        html: `<div class="bus-marker">${simplifyBusId(busId)}</div>`,
+        className: '',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+        popupAnchor: [0, -16]
+      });
+    }
+
+    function createBusPopup(busId, prediction) {
+      const { timeString, minutes } = formatArrivalTime(prediction.predicted_seconds);
+      
+      return `
+        <div style="min-width: 150px;">
+          <div class="bus-popup-header"><strong>Bus ${simplifyBusId(busId)}</strong></div>
+          <div class="prediction-info">
+            <strong>Next Stop:</strong><br>
+            <span class="prediction-time">${minutes} min</span> away<br>
+            Arrival: ${timeString}
+          </div>
+          <div style="margin-top: 8px; font-size: 11px;">
+            <strong>Distance to stop:</strong> ${prediction.distance_to_stop.toFixed(2)} km
+          </div>
+        </div>
+      `;
+    }
+
+    function updateBusMarkers() {
+      // Clear existing bus markers
+      Object.values(busMarkers).forEach(marker => map.removeLayer(marker));
+      busMarkers = {};
+
+      if (!PREDICTION_DATA || !PREDICTION_DATA['250']) return;
+
+      const directionId = currentDirection === 'eastbound' ? '0' : '1';
+      const buses = PREDICTION_DATA['250'][directionId] || {};
+
+      Object.entries(buses).forEach(([busId, predictions]) => {
+        if (predictions.length === 0) return;
+
+        const firstPrediction = predictions[0];
+        const { latitude, longitude } = firstPrediction;
+
+        if (!latitude || !longitude) return;
+
+        const marker = L.marker([latitude, longitude], {
+          icon: createBusIcon(busId)
+        }).addTo(map);
+
+        marker.bindPopup(createBusPopup(busId, firstPrediction));
+        busMarkers[busId] = marker;
+      });
+    }
+
+    // =============================================
+    // EVENT HANDLERS
+    // =============================================
+
+    function changeDirection(newDirection) {
+      if (newDirection === currentDirection) return;
+
+      currentDirection = newDirection;
+
+      document.getElementById('direction1').classList.toggle('active', newDirection === 'eastbound');
+      document.getElementById('direction2').classList.toggle('active', newDirection === 'westbound');
+
+      updateScheduleTable();
+      updateInfoPanel();
+      drawStops();
+      updateBusMarkers();
+    }
+
+    function refreshData() {
+      console.log("🔄 Refreshing data...");
+      loadBusData();
+    }
+
+    // =============================================
+    // INITIALIZATION
+    // =============================================
+
+    function init() {
+      console.log('🚀 Initializing Route 250 Predictions...');
+      
+      initMap();
+      loadBusData();
+
+      document.getElementById('direction1').addEventListener('click', () => changeDirection('eastbound'));
+      document.getElementById('direction2').addEventListener('click', () => changeDirection('westbound'));
+      document.getElementById('refreshData').addEventListener('click', refreshData);
+
+      // Auto-refresh every 30 seconds
+      setInterval(refreshData, 30000);
+    }
+
+    // Start when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 For CIS264ProjectTeam67
 
 To run the web app:  
-First run the main.py file in server\public. It starts a local server on 127.0.0.1:8080
+First run the main.py file in the server folder. The program starts a local server accessible from 127.0.0.1:8080
 
 To refresh bus predictions:
 Open a second terminal and run the inference.py in model
